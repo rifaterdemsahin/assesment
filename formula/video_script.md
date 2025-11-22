@@ -175,3 +175,18 @@
 *   **Act I (Avalanche):** `A chaotic, stylized 3D animation of an office worker standing on a crumbling cliff edge, looking up at a massive wave of glowing AI icons (ChatGPT, Python, Docker) crashing down like an avalanche, Pixar style.`
 *   **Act II (Blueprint):** `A glowing blue holographic blueprint of a futuristic all-terrain vehicle, with parts labeled 'Assessment' (Engine), 'Training' (Tires), and 'Workshop' (Chassis), high-tech garage background, cyberpunk aesthetic.`
 *   **Act III (Team):** `A diverse team of futuristic engineers in racing suits standing proudly on a mountain peak next to a muddy, high-tech rover vehicle, looking at a sunrise, golden hour lighting, cinematic shot.`
+
+---
+
+## ⚠️ Note on Image Previews
+If you are viewing this markdown file in **Antigravity** or certain IDEs (like VS Code), the images above might not display.
+
+**Why?**
+Most markdown previewers block local file access via absolute paths (`file:///...`) for security reasons (Sandboxing). They prevent a markdown file from reading arbitrary files on your system.
+
+**How to Solve It:**
+1.  **Use Relative Paths:** Change the paths to be relative to this file.
+    *   *Current:* `file:///Users/rifaterdemsahin/projects/assesment/imaginary/act1.png`
+    *   *Fix:* `../../imaginary/act1.png` (assuming this file is in `formula/` and images are in `imaginary/`).
+2.  **Host the Images:** Upload the images to a cloud host (like GitHub User Content, Imgur, or S3) and use the URL.
+3.  **Trust the Workspace:** In some IDEs, you can explicitly "Trust" the workspace to allow local file rendering, but this depends on the specific tool's security settings.
