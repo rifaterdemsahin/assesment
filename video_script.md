@@ -10,6 +10,7 @@
 *   **Visual:** Rifat driving a futuristic, mud-splattered buggy (labeled "ATW") escaping a massive avalanche of binary code and "Old Tech" logos.
 *   **Text Overlay:** "DON'T GET BURIED" or "SURVIVE THE SHIFT".
 *   **Expression:** Intense focus (not fear).
+*   **🎨 Image Prompt:** `A cinematic YouTube thumbnail of a determined man driving a high-tech dune buggy away from a massive avalanche of green binary code and server racks, dynamic lighting, 4k, hyper-realistic.`
 
 ---
 
@@ -34,6 +35,8 @@
 
 **"Companies don't want 'coders' anymore. They want Wizards. 🧙‍♂️ The ground is shaking. New tools every five minutes. Your old map? Trash. Your old shoes? Gone. We need a better way to move through this mess without getting buried."**
 
+**🎨 Image Prompt (The Avalanche):** `A chaotic, stylized 3D animation of an office worker standing on a crumbling cliff edge, looking up at a massive wave of glowing AI icons (ChatGPT, Python, Docker) crashing down like an avalanche, Pixar style.`
+
 ---
 
 # 🎭 ACT II: The Solution (The ATW Vehicle) 🚙
@@ -57,6 +60,8 @@
 
 **"This isn't random. It's engineering. The Assessment tells us what to Train. The Training gets the car ready to race."**
 
+**🎨 Image Prompt (The Blueprint):** `A glowing blue holographic blueprint of a futuristic all-terrain vehicle, with parts labeled 'Assessment' (Engine), 'Training' (Tires), and 'Workshop' (Chassis), high-tech garage background, cyberpunk aesthetic.`
+
 ---
 
 # 🎭 ACT III: The Outcome (X-Shaped Builders) ❌
@@ -77,6 +82,8 @@
 **"The old world wanted 'I-shaped' experts—one trick ponies. The AI world needs X-Shaped builders. They connect dots. They bridge DevOps and ML. They are the All-Terrain workforce."**
 
 **"Assess to find the path. Train to get the skills. Workshop to build the future. That's the ATW protocol. Get in the car."**
+
+**🎨 Image Prompt (The Team):** `A diverse team of futuristic engineers in racing suits standing proudly on a mountain peak next to a muddy, high-tech rover vehicle, looking at a sunrise, golden hour lighting, cinematic shot.`
 
 ---
 
@@ -154,3 +161,9 @@
 ### 5. The Goal: X-Shaped Builders ❌
 *   Moving from "I-shaped" (Specialists) to "X-shaped" (Collaborative, Multi-skilled).
 *   Result: A team that can handle *any* terrain (All-Terrain Workforce).
+
+### 6. 🎨 Image Prompts Summary
+*   **Thumbnail:** `A cinematic YouTube thumbnail of a determined man driving a high-tech dune buggy away from a massive avalanche of green binary code and server racks, dynamic lighting, 4k, hyper-realistic.`
+*   **Act I (Avalanche):** `A chaotic, stylized 3D animation of an office worker standing on a crumbling cliff edge, looking up at a massive wave of glowing AI icons (ChatGPT, Python, Docker) crashing down like an avalanche, Pixar style.`
+*   **Act II (Blueprint):** `A glowing blue holographic blueprint of a futuristic all-terrain vehicle, with parts labeled 'Assessment' (Engine), 'Training' (Tires), and 'Workshop' (Chassis), high-tech garage background, cyberpunk aesthetic.`
+*   **Act III (Team):** `A diverse team of futuristic engineers in racing suits standing proudly on a mountain peak next to a muddy, high-tech rover vehicle, looking at a sunrise, golden hour lighting, cinematic shot.`
