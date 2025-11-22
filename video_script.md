@@ -8,7 +8,7 @@
 
 **Thumbnail Concept:**
 *   **Visual:** Rifat driving a futuristic, mud-splattered buggy (labeled "ATW") escaping a massive avalanche of binary code and "Old Tech" logos.
-*   **Text Overlay:** "DON'T GET BURIED" or "SURVIVE THE SHIFT".
+*   **Text Overlay:** "ESCAPE THE AI AVALANCHE" or "SURVIVE THE SHIFT".
 *   **Expression:** Intense focus (not fear).
 *   **🎨 Image Prompt:** `A cinematic YouTube thumbnail of a determined man driving a high-tech dune buggy away from a massive avalanche of green binary code and server racks, dynamic lighting, 4k, hyper-realistic.`
 
@@ -16,8 +16,8 @@
 
 ---
 
-**Total A-Roll Time:** ~75 Seconds ⏱️
-**Total B-Roll Time:** ~170 Seconds 🖥️
+**Total A-Roll Time:** ~85 Seconds ⏱️
+**Total B-Roll Time:** ~150 Seconds 🖥️
 **Total Video Length:** ~4 Minutes 📼
 
 ---
@@ -34,10 +34,10 @@
 
 ---
 
-## 🎙️ PROMPTER (VOICEOVER) | 0:10 - 0:40 (30s)
-*(Visuals: Graph shooting up 📈, Job description scrolling, Confused stick figure)*
+## 🎙️ PROMPTER (VOICEOVER) | 0:10 - 0:30 (20s)
+*(Visuals: Fast montage: Graph shooting up 📈 -> Job description scrolling -> Confused stick figure)*
 
-**"Companies don't want 'coders' anymore. They want Wizards. 🧙‍♂️ The ground is shaking. New tools every five minutes. Your old map? Trash. Your old shoes? Gone. We need a better way to move through this mess without getting buried."**
+**"Companies don't want 'coders' anymore. They want Wizards. 🧙‍♂️ The ground is shaking. Your old map? Trash. We need a better way to move through this mess without getting buried."**
 
 **🎨 Image Prompt (The Avalanche):** `A chaotic, stylized 3D animation of an office worker standing on a crumbling cliff edge, looking up at a massive wave of glowing AI icons (ChatGPT, Python, Docker) crashing down like an avalanche, Pixar style.`
 
@@ -48,14 +48,14 @@
 
 ![Act II: The Solution](file:///Users/rifaterdemsahin/projects/assesment/imaginary/act2.jpg)
 
-## 🟢 PROMPTER (A-ROLL) | 0:40 - 1:00 (20s)
+## 🟢 PROMPTER (A-ROLL) | 0:30 - 0:50 (20s)
 *(Action: Slapping hood of futuristic buggy 🏎️)*
 
 **"Meet the ATW. Assess. Train. Workshop. This is your All Terrain Vehicle. It eats chaos for breakfast. It turns your team from scared hikers into off-road beasts. Let's pop the hood."**
 
 ---
 
-## 🎙️ PROMPTER (VOICEOVER) | 1:00 - 2:00 (60s)
+## 🎙️ PROMPTER (VOICEOVER) | 0:50 - 1:50 (60s)
 *(Visuals: Assessment Engine Check 🔧, Report Diagnostic 📋, Training Upgrades ⚙️, Blueprint Image)*
 
 **"First, the Engine Check. We scan everything—Security, Culture, CI/CD. No guessing games."**
@@ -75,17 +75,17 @@
 
 ![Act III: The Outcome](file:///Users/rifaterdemsahin/projects/assesment/imaginary/act3.jpg)
 
-## 🟢 PROMPTER (A-ROLL) | 2:00 - 2:30 (30s)
+## 🟢 PROMPTER (A-ROLL) | 1:50 - 2:20 (30s)
 *(Action: Driving wildly but confidently 🏎️)*
 
 **"Now we drive. The Workshop. This is where we actually build stuff. We don't just talk theory; we ship code. I've shipped 200+ repos 📦 this way. We turn your people into X-Shaped drivers—they can handle ANY terrain. Mud, snow, AI apocalypse? No problem."**
 
 ---
 
-## 🎙️ PROMPTER (VOICEOVER) | 2:30 - 3:50 (80s)
-*(Visuals: GitHub 200+ Repos 🐙, I-Shaped vs X-Shaped ❌, Delivery Pilot Board, Racing Team Image)*
+## 🎙️ PROMPTER (VOICEOVER) | 2:20 - 3:30 (70s)
+*(Visuals: **FAST SCROLL of Rifat's GitHub Profile (Proof)** 🐙, **Graphic: X-Shaped Definition (Breadth + Depth)** ❌, Delivery Pilot Board)*
 
-**"Proof is in the mileage. 200+ repositories delivered. This isn't a slide deck; it's a factory."**
+**"Proof is in the mileage. 200+ repositories delivered. Look at this scroll—this isn't a slide deck; it's a factory."**
 
 **"The old world wanted 'I-shaped' experts—one trick ponies. The AI world needs X-Shaped builders. They connect dots. They bridge DevOps and ML. They are the All-Terrain workforce."**
 
@@ -98,12 +98,12 @@
 # 🎬 OUTRO & APPLY (The Offer) 🎁
 **🧠 MEMORY PALACE ANCHOR: THE KEYS**
 
-## 🟢 PROMPTER (A-ROLL) | 3:50 - 4:05 (15s)
+## 🟢 PROMPTER (A-ROLL) | 3:30 - 3:45 (15s)
 *(Action: Leaning on the buggy, holding a tablet)*
 
-**"Here's the deal. First 10 people? The Assessment is FREE. I'm also dropping the 1-1 Analysis to just $50—that's basically free for what you get. Plus, the 'AI Architect' course? On the house."**
+**"Here's the deal. First 10 people? The Assessment is FREE. I'm also dropping the 1-1 Analysis to just $50—that's less than an hour of your billing rate. Plus, the 'AI Architect' course? On the house."**
 
-## 🟢 PROMPTER (A-ROLL) | 4:05 - 4:15 (10s)
+## 🟢 PROMPTER (A-ROLL) | 3:45 - 3:55 (10s)
 *(Action: Tossing keys 🔑)*
 
 **"And hey, this tool is open source. Fork it. Break it. Build your own. Just don't stand still. Link in bio. Let's drive."**
