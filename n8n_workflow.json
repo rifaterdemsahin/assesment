@@ -1,0 +1,114 @@
+{
+  "name": "AI Assessment Intake & Report",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "assessment-submit",
+        "options": {}
+      },
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "user_name",
+              "value": "={{$json.body.userInfo.name}}"
+            },
+            {
+              "name": "user_email",
+              "value": "={{$json.body.userInfo.email}}"
+            },
+            {
+              "name": "overall_score",
+              "value": "={{$json.body.scores.overall}}"
+            },
+            {
+              "name": "level_name",
+              "value": "={{$json.body.levelName}}"
+            },
+            {
+              "name": "recommendations",
+              "value": "={{$json.body.recommendations}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Extract Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        450,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## New Assessment Submission\n\n**User:** {{$json.user_name}} ({{$json.user_email}})\n**Score:** {{$json.overall_score}}% - {{$json.level_name}}\n\n### Recommendations:\n{{$json.recommendations.map(r => `- [${r.priority}] ${r.area}: ${r.report}`).join('\\n')}}"
+      },
+      "name": "Format Notification",
+      "type": "n8n-nodes-base.markdown",
+      "typeVersion": 1,
+      "position": [
+        650,
+        300
+      ]
+    },
+    {
+      "parameters": {},
+      "name": "NoOp",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        850,
+        300
+      ],
+      "notes": "Placeholder for PDF Generation / Email Sending"
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Extract Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Data": {
+      "main": [
+        [
+          {
+            "node": "Format Notification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Notification": {
+      "main": [
+        [
+          {
+            "node": "NoOp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}
