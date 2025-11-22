@@ -1,95 +1,110 @@
-import React, { useState } from 'react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI-Powered DevOps Maturity Assessment</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <div id="root"></div>
+  
+  <script type="text/babel">
+    const { useState } = React;
 
-const categories = [
-  { id: 'ci', name: 'CI/CD & AI-Powered Delivery', emoji: '🔄', color: 'from-blue-500 to-blue-600' },
-  { id: 'infra', name: 'Intelligent Infrastructure', emoji: '🏗️', color: 'from-purple-500 to-purple-600' },
-  { id: 'monitor', name: 'AIOps & Observability', emoji: '📊', color: 'from-green-500 to-green-600' },
-  { id: 'security', name: 'AI-Enhanced Security', emoji: '🔒', color: 'from-red-500 to-red-600' },
-  { id: 'culture', name: 'AI-First Culture', emoji: '🤝', color: 'from-orange-500 to-orange-600' },
-  { id: 'automation', name: 'Intelligent Automation', emoji: '🤖', color: 'from-teal-500 to-teal-600' }
-];
+    const categories = [
+      { id: 'ci', name: 'CI/CD & AI-Powered Delivery', emoji: '🔄', color: 'from-blue-500 to-blue-600' },
+      { id: 'infra', name: 'Intelligent Infrastructure', emoji: '🏗️', color: 'from-purple-500 to-purple-600' },
+      { id: 'monitor', name: 'AIOps & Observability', emoji: '📊', color: 'from-green-500 to-green-600' },
+      { id: 'security', name: 'AI-Enhanced Security', emoji: '🔒', color: 'from-red-500 to-red-600' },
+      { id: 'culture', name: 'AI-First Culture', emoji: '🤝', color: 'from-orange-500 to-orange-600' },
+      { id: 'automation', name: 'Intelligent Automation', emoji: '🤖', color: 'from-teal-500 to-teal-600' }
+    ];
 
-const questions = [
+    const questions = [
   // CI/CD & AI-Powered Delivery (4 questions)
-  { id: 1, cat: 'ci', q: '🚀 How does AI assist your deployment decisions?', opts: ['No AI involvement', 'Basic deployment scheduling', 'AI suggests optimal deploy windows', 'AI autonomously manages deployments with risk scoring'] },
-  { id: 2, cat: 'ci', q: '🔍 How do you use AI for code review and quality?', opts: ['Manual code reviews only', 'Basic linting tools', 'AI-powered code review (Copilot, CodeRabbit)', 'Full AI code analysis with auto-fixes and learning'] },
-  { id: 3, cat: 'ci', q: '📈 How does AI optimize your CI/CD pipeline performance?', opts: ['No optimization', 'Manual pipeline tuning', 'AI identifies bottlenecks', 'Self-optimizing pipelines with ML-driven caching'] },
-  { id: 4, cat: 'ci', q: '🎯 How do you use AI for release risk prediction?', opts: ['No risk assessment', 'Manual checklists', 'AI analyzes change risk scores', 'Predictive models block high-risk releases automatically'] },
-  
-  // Intelligent Infrastructure (4 questions)
-  { id: 5, cat: 'infra', q: '☁️ How does AI manage your infrastructure scaling?', opts: ['Manual scaling', 'Threshold-based autoscaling', 'Predictive autoscaling with ML', 'AI-driven autonomous infrastructure optimization'] },
-  { id: 6, cat: 'infra', q: '💰 How do you use AI for cloud cost optimization?', opts: ['No cost analysis', 'Manual cost reviews', 'AI cost anomaly detection', 'Autonomous AI cost optimization with FinOps integration'] },
-  { id: 7, cat: 'infra', q: '🔧 How does AI assist in infrastructure troubleshooting?', opts: ['Manual debugging', 'Log search tools', 'AI-powered root cause suggestions', 'Autonomous AI remediation with self-healing infrastructure'] },
-  { id: 8, cat: 'infra', q: '📋 How do you use AI for IaC generation and review?', opts: ['Manual IaC writing', 'Templates and modules', 'AI generates IaC from requirements', 'AI creates, reviews, and optimizes IaC with drift prediction'] },
-  
-  // AIOps & Observability (4 questions)
-  { id: 9, cat: 'monitor', q: '🔔 How does AI power your alerting system?', opts: ['Static threshold alerts', 'Dynamic thresholds', 'AI anomaly detection with correlation', 'Predictive alerting preventing incidents before they occur'] },
-  { id: 10, cat: 'monitor', q: '🧠 How mature is your AIOps implementation?', opts: ['No AIOps', 'Basic ML for metrics', 'AIOps platform with event correlation', 'Full AIOps with autonomous incident response'] },
-  { id: 11, cat: 'monitor', q: '📊 How does AI assist in log analysis?', opts: ['Manual log searching', 'Pattern matching rules', 'ML-powered log clustering and anomaly detection', 'AI understands context and predicts issues from logs'] },
-  { id: 12, cat: 'monitor', q: '🎯 How do you use AI for performance optimization?', opts: ['Reactive performance fixes', 'Basic APM tools', 'AI identifies performance patterns', 'AI autonomously optimizes application performance'] },
-  
-  // AI-Enhanced Security (4 questions)
-  { id: 13, cat: 'security', q: '🛡️ How does AI enhance your threat detection?', opts: ['Signature-based detection only', 'SIEM with basic rules', 'AI-powered threat hunting', 'Autonomous AI security with behavioral analysis'] },
-  { id: 14, cat: 'security', q: '🔐 How do you use AI for vulnerability management?', opts: ['Manual vulnerability scanning', 'Scheduled automated scans', 'AI prioritizes vulnerabilities by risk', 'AI predicts vulnerabilities and auto-patches'] },
-  { id: 15, cat: 'security', q: '🤖 How do you secure your AI/ML pipelines?', opts: ['No AI security considerations', 'Basic model access controls', 'ML model scanning and validation', 'Full MLSecOps with model monitoring and adversarial testing'] },
-  { id: 16, cat: 'security', q: '📝 How does AI assist in compliance management?', opts: ['Manual compliance audits', 'Automated compliance checks', 'AI monitors compliance continuously', 'AI predicts compliance risks and auto-remediates'] },
-  
-  // AI-First Culture (4 questions)
-  { id: 17, cat: 'culture', q: '🎓 How is your team trained on AI/ML for DevOps?', opts: ['No AI training', 'Basic awareness sessions', 'Structured AI/ML learning paths', 'Continuous AI upskilling with hands-on projects'] },
-  { id: 18, cat: 'culture', q: '💬 How do teams use AI assistants (ChatGPT, Claude, Copilot)?', opts: ['Not allowed or adopted', 'Individual experimentation', 'Team-approved AI tools with guidelines', 'AI assistants integrated into all workflows with governance'] },
-  { id: 19, cat: 'culture', q: '📚 How does AI help with knowledge management?', opts: ['Static documentation', 'Searchable wikis', 'AI-powered search and Q&A bots', 'AI generates and updates documentation automatically'] },
-  { id: 20, cat: 'culture', q: '🔄 How do you measure and improve AI adoption?', opts: ['No measurement', 'Ad-hoc feedback', 'AI usage metrics tracked', 'AI ROI measured with continuous improvement programs'] },
-  
-  // Intelligent Automation (4 questions)
-  { id: 21, cat: 'automation', q: '🧪 How does AI enhance your testing strategy?', opts: ['Manual test writing', 'Record and playback', 'AI generates test cases', 'AI creates, maintains, and self-heals tests autonomously'] },
-  { id: 22, cat: 'automation', q: '🔁 How do you use AI for incident auto-remediation?', opts: ['Manual incident response', 'Runbook automation', 'AI suggests remediation steps', 'AI autonomously resolves common incidents'] },
-  { id: 23, cat: 'automation', q: '📈 How does AI optimize your test execution?', opts: ['Run all tests every time', 'Basic test parallelization', 'AI selects relevant tests based on changes', 'Predictive test selection with ML-optimized execution'] },
-  { id: 24, cat: 'automation', q: '🌐 How do you use AI for synthetic monitoring and chaos engineering?', opts: ['Basic uptime checks', 'Scripted synthetic tests', 'AI-generated user journey tests', 'AI-driven chaos engineering with intelligent failure injection'] }
-];
+      { id: 1, cat: 'ci', q: '🚀 How does AI assist your deployment decisions?', opts: ['No AI involvement', 'Basic deployment scheduling', 'AI suggests optimal deploy windows', 'AI autonomously manages deployments with risk scoring'] },
+      { id: 2, cat: 'ci', q: '🔍 How do you use AI for code review and quality?', opts: ['Manual code reviews only', 'Basic linting tools', 'AI-powered code review (Copilot, CodeRabbit)', 'Full AI code analysis with auto-fixes and learning'] },
+      { id: 3, cat: 'ci', q: '📈 How does AI optimize your CI/CD pipeline performance?', opts: ['No optimization', 'Manual pipeline tuning', 'AI identifies bottlenecks', 'Self-optimizing pipelines with ML-driven caching'] },
+      { id: 4, cat: 'ci', q: '🎯 How do you use AI for release risk prediction?', opts: ['No risk assessment', 'Manual checklists', 'AI analyzes change risk scores', 'Predictive models block high-risk releases automatically'] },
+      
+      // Intelligent Infrastructure (4 questions)
+      { id: 5, cat: 'infra', q: '☁️ How does AI manage your infrastructure scaling?', opts: ['Manual scaling', 'Threshold-based autoscaling', 'Predictive autoscaling with ML', 'AI-driven autonomous infrastructure optimization'] },
+      { id: 6, cat: 'infra', q: '💰 How do you use AI for cloud cost optimization?', opts: ['No cost analysis', 'Manual cost reviews', 'AI cost anomaly detection', 'Autonomous AI cost optimization with FinOps integration'] },
+      { id: 7, cat: 'infra', q: '🔧 How does AI assist in infrastructure troubleshooting?', opts: ['Manual debugging', 'Log search tools', 'AI-powered root cause suggestions', 'Autonomous AI remediation with self-healing infrastructure'] },
+      { id: 8, cat: 'infra', q: '📋 How do you use AI for IaC generation and review?', opts: ['Manual IaC writing', 'Templates and modules', 'AI generates IaC from requirements', 'AI creates, reviews, and optimizes IaC with drift prediction'] },
+      
+      // AIOps & Observability (4 questions)
+      { id: 9, cat: 'monitor', q: '🔔 How does AI power your alerting system?', opts: ['Static threshold alerts', 'Dynamic thresholds', 'AI anomaly detection with correlation', 'Predictive alerting preventing incidents before they occur'] },
+      { id: 10, cat: 'monitor', q: '🧠 How mature is your AIOps implementation?', opts: ['No AIOps', 'Basic ML for metrics', 'AIOps platform with event correlation', 'Full AIOps with autonomous incident response'] },
+      { id: 11, cat: 'monitor', q: '📊 How does AI assist in log analysis?', opts: ['Manual log searching', 'Pattern matching rules', 'ML-powered log clustering and anomaly detection', 'AI understands context and predicts issues from logs'] },
+      { id: 12, cat: 'monitor', q: '🎯 How do you use AI for performance optimization?', opts: ['Reactive performance fixes', 'Basic APM tools', 'AI identifies performance patterns', 'AI autonomously optimizes application performance'] },
+      
+      // AI-Enhanced Security (4 questions)
+      { id: 13, cat: 'security', q: '🛡️ How does AI enhance your threat detection?', opts: ['Signature-based detection only', 'SIEM with basic rules', 'AI-powered threat hunting', 'Autonomous AI security with behavioral analysis'] },
+      { id: 14, cat: 'security', q: '🔐 How do you use AI for vulnerability management?', opts: ['Manual vulnerability scanning', 'Scheduled automated scans', 'AI prioritizes vulnerabilities by risk', 'AI predicts vulnerabilities and auto-patches'] },
+      { id: 15, cat: 'security', q: '🤖 How do you secure your AI/ML pipelines?', opts: ['No AI security considerations', 'Basic model access controls', 'ML model scanning and validation', 'Full MLSecOps with model monitoring and adversarial testing'] },
+      { id: 16, cat: 'security', q: '📝 How does AI assist in compliance management?', opts: ['Manual compliance audits', 'Automated compliance checks', 'AI monitors compliance continuously', 'AI predicts compliance risks and auto-remediates'] },
+      
+      // AI-First Culture (4 questions)
+      { id: 17, cat: 'culture', q: '🎓 How is your team trained on AI/ML for DevOps?', opts: ['No AI training', 'Basic awareness sessions', 'Structured AI/ML learning paths', 'Continuous AI upskilling with hands-on projects'] },
+      { id: 18, cat: 'culture', q: '💬 How do teams use AI assistants (ChatGPT, Claude, Copilot)?', opts: ['Not allowed or adopted', 'Individual experimentation', 'Team-approved AI tools with guidelines', 'AI assistants integrated into all workflows with governance'] },
+      { id: 19, cat: 'culture', q: '📚 How does AI help with knowledge management?', opts: ['Static documentation', 'Searchable wikis', 'AI-powered search and Q&A bots', 'AI generates and updates documentation automatically'] },
+      { id: 20, cat: 'culture', q: '🔄 How do you measure and improve AI adoption?', opts: ['No measurement', 'Ad-hoc feedback', 'AI usage metrics tracked', 'AI ROI measured with continuous improvement programs'] },
+      
+      // Intelligent Automation (4 questions)
+      { id: 21, cat: 'automation', q: '🧪 How does AI enhance your testing strategy?', opts: ['Manual test writing', 'Record and playback', 'AI generates test cases', 'AI creates, maintains, and self-heals tests autonomously'] },
+      { id: 22, cat: 'automation', q: '🔁 How do you use AI for incident auto-remediation?', opts: ['Manual incident response', 'Runbook automation', 'AI suggests remediation steps', 'AI autonomously resolves common incidents'] },
+      { id: 23, cat: 'automation', q: '📈 How does AI optimize your test execution?', opts: ['Run all tests every time', 'Basic test parallelization', 'AI selects relevant tests based on changes', 'Predictive test selection with ML-optimized execution'] },
+      { id: 24, cat: 'automation', q: '🌐 How do you use AI for synthetic monitoring and chaos engineering?', opts: ['Basic uptime checks', 'Scripted synthetic tests', 'AI-generated user journey tests', 'AI-driven chaos engineering with intelligent failure injection'] }
+    ];
 
-const levelColors = {
-  1: { bg: 'bg-red-100', border: 'border-red-400', text: 'text-red-700', name: 'AI Aware', emoji: '🔴' },
-  2: { bg: 'bg-orange-100', border: 'border-orange-400', text: 'text-orange-700', name: 'AI Experimenting', emoji: '🟠' },
-  3: { bg: 'bg-yellow-100', border: 'border-yellow-400', text: 'text-yellow-700', name: 'AI Integrated', emoji: '🟡' },
-  4: { bg: 'bg-green-100', border: 'border-green-400', text: 'text-green-700', name: 'AI Native', emoji: '🟢' }
-};
+    const levelColors = {
+      1: { bg: 'bg-red-100', border: 'border-red-400', text: 'text-red-700', name: 'AI Aware', emoji: '🔴' },
+      2: { bg: 'bg-orange-100', border: 'border-orange-400', text: 'text-orange-700', name: 'AI Experimenting', emoji: '🟠' },
+      3: { bg: 'bg-yellow-100', border: 'border-yellow-400', text: 'text-yellow-700', name: 'AI Integrated', emoji: '🟡' },
+      4: { bg: 'bg-green-100', border: 'border-green-400', text: 'text-green-700', name: 'AI Native', emoji: '🟢' }
+    };
 
-const reportMapping = {
-  ci: { low: 'AI-Powered CI/CD Transformation Guide', high: 'Advanced MLOps Pipeline Optimization' },
-  infra: { low: 'Intelligent Infrastructure Automation Playbook', high: 'Autonomous Cloud Operations Framework' },
-  monitor: { low: 'AIOps Implementation Roadmap', high: 'Predictive Operations Excellence Guide' },
-  security: { low: 'AI Security & MLSecOps Adoption Plan', high: 'Zero-Trust AI Security Architecture' },
-  culture: { low: 'AI-First Culture Transformation Guide', high: 'Enterprise AI Center of Excellence Blueprint' },
-  automation: { low: 'Intelligent Test Automation Strategy', high: 'Autonomous DevOps Maturity Framework' }
-};
+    const reportMapping = {
+      ci: { low: 'AI-Powered CI/CD Transformation Guide', high: 'Advanced MLOps Pipeline Optimization' },
+      infra: { low: 'Intelligent Infrastructure Automation Playbook', high: 'Autonomous Cloud Operations Framework' },
+      monitor: { low: 'AIOps Implementation Roadmap', high: 'Predictive Operations Excellence Guide' },
+      security: { low: 'AI Security & MLSecOps Adoption Plan', high: 'Zero-Trust AI Security Architecture' },
+      culture: { low: 'AI-First Culture Transformation Guide', high: 'Enterprise AI Center of Excellence Blueprint' },
+      automation: { low: 'Intelligent Test Automation Strategy', high: 'Autonomous DevOps Maturity Framework' }
+    };
 
-export default function DevOpsAssessment() {
-  const [step, setStep] = useState('intro');
-  const [userInfo, setUserInfo] = useState({ name: '', org: '', role: '', email: '' });
-  const [answers, setAnswers] = useState({});
-  const [currentQ, setCurrentQ] = useState(0);
+    function DevOpsAssessment() {
+      const [step, setStep] = useState('intro');
+      const [userInfo, setUserInfo] = useState({ name: '', org: '', role: '', email: '' });
+      const [answers, setAnswers] = useState({});
+      const [currentQ, setCurrentQ] = useState(0);
 
-  const handleAnswer = (qId, value) => {
-    setAnswers({ ...answers, [qId]: value });
-    if (currentQ < questions.length - 1) {
-      setTimeout(() => setCurrentQ(currentQ + 1), 300);
-    }
-  };
+      const handleAnswer = (qId, value) => {
+        setAnswers({ ...answers, [qId]: value });
+        if (currentQ < questions.length - 1) {
+          setTimeout(() => setCurrentQ(currentQ + 1), 300);
+        }
+      };
 
-  const calcScores = () => {
-    const scores = {};
-    categories.forEach(cat => {
-      const catQs = questions.filter(q => q.cat === cat.id);
-      const total = catQs.reduce((sum, q) => sum + (answers[q.id] || 0), 0);
-      scores[cat.id] = Math.round((total / (catQs.length * 3)) * 100);
-    });
-    scores.overall = Math.round(Object.values(scores).reduce((a, b) => a + b, 0) / 6);
-    return scores;
-  };
+      const calcScores = () => {
+        const scores = {};
+        categories.forEach(cat => {
+          const catQs = questions.filter(q => q.cat === cat.id);
+          const total = catQs.reduce((sum, q) => sum + (answers[q.id] || 0), 0);
+          scores[cat.id] = Math.round((total / (catQs.length * 3)) * 100);
+        });
+        scores.overall = Math.round(Object.values(scores).reduce((a, b) => a + b, 0) / 6);
+        return scores;
+      };
 
-  const getLevel = (score) => score < 25 ? 1 : score < 50 ? 2 : score < 75 ? 3 : 4;
+      const getLevel = (score) => score < 25 ? 1 : score < 50 ? 2 : score < 75 ? 3 : 4;
 
-  const getDeliveryCapability = (scores) => {
+      const getDeliveryCapability = (scores) => {
     const avg = scores.overall;
     if (avg < 25) return { level: 'Foundation', desc: 'Focus on establishing AI-aware practices before scaling', icon: '🏗️' };
     if (avg < 50) return { level: 'Developing', desc: 'Ready for pilot AI initiatives with guided implementation', icon: '🌱' };
