@@ -13,27 +13,24 @@
 *   **🎨 Image Prompt:** `A cinematic YouTube thumbnail of a determined man driving a high-tech dune buggy away from a massive avalanche of green binary code and server racks, dynamic lighting, 4k, hyper-realistic.`
 
 ![Thumbnail Concept](https://github.com/rifaterdemsahin/assesment/blob/main/imaginary/thumbnail.png?raw=true)
-
+![Thumbnail Concept](../imaginary/thumbnail.png)
 ---
-
 **Total A-Roll Time:** ~85 Seconds ⏱️
 **Total B-Roll Time:** ~150 Seconds 🖥️
 **Total Video Length:** ~4 Minutes 📼
 
 ---
-
 # 🎭 ACT I: The Problem (The Avalanche) 🏔️
 **🧠 MEMORY PALACE ANCHOR: THE AVALANCHE**
 
 ![Act I: The Avalanche](https://github.com/rifaterdemsahin/assesment/blob/main/imaginary/act1.png?raw=true)
-
+![Act I: The Avalanche](../imaginary/act1.png)
 ## 🟢 PROMPTER (A-ROLL) | 0:00 - 0:10 (10s)
 *(Action: Holding tiny umbrella ☂️, looking scared)*
 
 **"Feel that? That's the AI Avalanche. 🌨️ It's huge. It's fast. And if you're just standing there with your old resume, you're toast. You don't need an umbrella, folks. You need a ride."**
 
 ---
-
 ## 🎙️ PROMPTER (VOICEOVER) | 0:10 - 0:30 (20s)
 *(Visuals: Fast montage: Graph shooting up 📈 -> Job description scrolling -> Confused stick figure)*
 
@@ -42,19 +39,17 @@
 **🎨 Image Prompt (The Avalanche):** `A chaotic, stylized 3D animation of an office worker standing on a crumbling cliff edge, looking up at a massive wave of glowing AI icons (ChatGPT, Python, Docker) crashing down like an avalanche, Pixar style.`
 
 ---
-
 # 🎭 ACT II: The Solution (The ATW Vehicle) 🚙
 **🧠 MEMORY PALACE ANCHOR: THE GARAGE & BUGGY**
 
 ![Act II: The Solution](https://github.com/rifaterdemsahin/assesment/blob/main/imaginary/act2.jpg?raw=true)
-
+![Act II: The Solution](../imaginary/act2.jpg)
 ## 🟢 PROMPTER (A-ROLL) | 0:30 - 0:50 (20s)
 *(Action: Slapping hood of futuristic buggy 🏎️)*
 
 **"Meet the ATW. Assess. Train. Workshop. This is your All Terrain Vehicle. It eats chaos for breakfast. It turns your team from scared hikers into off-road beasts. Let's pop the hood."**
 
 ---
-
 ## 🎙️ PROMPTER (VOICEOVER) | 0:50 - 1:50 (60s)
 *(Visuals: Assessment Engine Check 🔧, Report Diagnostic 📋, Training Upgrades ⚙️, Blueprint Image)*
 
@@ -69,19 +64,17 @@
 **🎨 Image Prompt (The Blueprint):** `A glowing blue holographic blueprint of a futuristic all-terrain vehicle, with parts labeled 'Assessment' (Engine), 'Training' (Tires), and 'Workshop' (Chassis), high-tech garage background, cyberpunk aesthetic.`
 
 ---
-
 # 🎭 ACT III: The Outcome (X-Shaped Builders) ❌
 **🧠 MEMORY PALACE ANCHOR: THE MOUNTAIN PEAK**
 
 ![Act III: The Outcome](https://github.com/rifaterdemsahin/assesment/blob/main/imaginary/act3.jpg?raw=true)
-
+![Act III: The Outcome](../imaginary/act3.jpg)
 ## 🟢 PROMPTER (A-ROLL) | 1:50 - 2:20 (30s)
 *(Action: Driving wildly but confidently 🏎️)*
 
 **"Now we drive. The Workshop. This is where we actually build stuff. We don't just talk theory; we ship code. I've shipped 200+ repos 📦 this way. We turn your people into X-Shaped drivers—they can handle ANY terrain. Mud, snow, AI apocalypse? No problem."**
 
 ---
-
 ## 🎙️ PROMPTER (VOICEOVER) | 2:20 - 3:30 (70s)
 *(Visuals: **FAST SCROLL of Rifat's GitHub Profile (Proof)** 🐙, **Graphic: X-Shaped Definition (Breadth + Depth)** ❌, Delivery Pilot Board)*
 
@@ -94,7 +87,6 @@
 **🎨 Image Prompt (The Team):** `A diverse team of futuristic engineers in racing suits standing proudly on a mountain peak next to a muddy, high-tech rover vehicle, looking at a sunrise, golden hour lighting, cinematic shot.`
 
 ---
-
 # 🎬 OUTRO & APPLY (The Offer) 🎁
 **🧠 MEMORY PALACE ANCHOR: THE KEYS**
 
@@ -109,7 +101,6 @@
 **"And hey, this tool is open source. Fork it. Break it. Build your own. Just don't stand still. Link in bio. Let's drive."**
 
 
----
 
 ## 🧠 Educational Framework (Tell-Show-Do-Apply)
 *Focus: From Concept to Application ("Learned to Apply")*
@@ -138,7 +129,6 @@
     *   **Professional Application:** Book the 1-1 analysis or Workshop.
     *Key Message:* "Don't just watch me drive. Here are the keys." 🔑
 
----
 
 ## 🧠 Tactics & Strategy Summary
 *Scanning all prompts and requirements...*
@@ -176,7 +166,6 @@
 *   **Act II (Blueprint):** `A glowing blue holographic blueprint of a futuristic all-terrain vehicle, with parts labeled 'Assessment' (Engine), 'Training' (Tires), and 'Workshop' (Chassis), high-tech garage background, cyberpunk aesthetic.`
 *   **Act III (Team):** `A diverse team of futuristic engineers in racing suits standing proudly on a mountain peak next to a muddy, high-tech rover vehicle, looking at a sunrise, golden hour lighting, cinematic shot.`
 
-### 7. 🔗 Asset Links (GitHub)
 *   **Thumbnail:** [thumbnail.png](https://github.com/rifaterdemsahin/assesment/blob/main/imaginary/thumbnail.png?raw=true)
 *   **Act I:** [act1.png](https://github.com/rifaterdemsahin/assesment/blob/main/imaginary/act1.png?raw=true)
 *   **Act II:** [act2.jpg](https://github.com/rifaterdemsahin/assesment/blob/main/imaginary/act2.jpg?raw=true)
