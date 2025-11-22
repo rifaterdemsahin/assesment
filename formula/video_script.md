@@ -12,7 +12,7 @@
 *   **Expression:** Intense focus (not fear).
 *   **🎨 Image Prompt:** `A cinematic YouTube thumbnail of a determined man driving a high-tech dune buggy away from a massive avalanche of green binary code and server racks, dynamic lighting, 4k, hyper-realistic.`
 
-![Thumbnail Concept](../imaginary/thumbnail.png)
+![Thumbnail Concept](imaginary/thumbnail.png)
 
 ---
 
@@ -25,7 +25,7 @@
 # 🎭 ACT I: The Problem (The Avalanche) 🏔️
 **🧠 MEMORY PALACE ANCHOR: THE AVALANCHE**
 
-![Act I: The Avalanche](../imaginary/act1.png)
+![Act I: The Avalanche](imaginary/act1.png)
 
 ## 🟢 PROMPTER (A-ROLL) | 0:00 - 0:10 (10s)
 *(Action: Holding tiny umbrella ☂️, looking scared)*
@@ -46,7 +46,7 @@
 # 🎭 ACT II: The Solution (The ATW Vehicle) 🚙
 **🧠 MEMORY PALACE ANCHOR: THE GARAGE & BUGGY**
 
-![Act II: The Solution](../imaginary/act2.jpg)
+![Act II: The Solution](imaginary/act2.jpg)
 
 ## 🟢 PROMPTER (A-ROLL) | 0:30 - 0:50 (20s)
 *(Action: Slapping hood of futuristic buggy 🏎️)*
@@ -73,7 +73,7 @@
 # 🎭 ACT III: The Outcome (X-Shaped Builders) ❌
 **🧠 MEMORY PALACE ANCHOR: THE MOUNTAIN PEAK**
 
-![Act III: The Outcome](../imaginary/act3.jpg)
+![Act III: The Outcome](imaginary/act3.jpg)
 
 ## 🟢 PROMPTER (A-ROLL) | 1:50 - 2:20 (30s)
 *(Action: Driving wildly but confidently 🏎️)*
