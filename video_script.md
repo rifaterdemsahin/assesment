@@ -7,14 +7,14 @@
 
 # 🎭 ACT I: The Problem (The Avalanche) 🏔️
 
-## 🟢 PROMPTER (A-ROLL) - 10s
+## 🟢 PROMPTER (A-ROLL) | 0:00 - 0:10 (10s)
 *(Action: Holding tiny umbrella ☂️, looking scared)*
 
 **"Feel that? That's the AI Avalanche. 🌨️ Expectations are skyrocketing. If you're standing still, you're buried. You don't need an umbrella; you need a vehicle."**
 
 ---
 
-## 🎙️ PROMPTER (VOICEOVER) - 40s
+## 🎙️ PROMPTER (VOICEOVER) | 0:10 - 0:50 (40s)
 *(Visuals: Graph shooting up 📈, Job description scrolling, Confused stick figure)*
 
 **"The market isn't asking for just 'coders' anymore. It wants Magicians. 🧙‍♂️ The terrain has changed. It's rocky, unpredictable, and fast. Your old map? Useless. Your old shoes? Ruined. We need a new way to move."**
@@ -23,14 +23,14 @@
 
 # 🎭 ACT II: The Solution (The ATW Vehicle) 🚙
 
-## 🟢 PROMPTER (A-ROLL) - 20s
+## 🟢 PROMPTER (A-ROLL) | 0:50 - 1:10 (20s)
 *(Action: Slapping hood of futuristic buggy 🏎️)*
 
 **"Meet the ATW. Assess. Train. Workshop. It's your All Terrain Vehicle for this mess. It turns your team into off-road beasts. Let's look under the hood."**
 
 ---
 
-## 🎙️ PROMPTER (VOICEOVER) - 80s
+## 🎙️ PROMPTER (VOICEOVER) | 1:10 - 2:30 (80s)
 *(Visuals: Assessment Engine Check 🔧, Report Diagnostic 📋, Training Upgrades ⚙️, Blueprint Image)*
 
 **"First, the Engine Check. We scan the chassis—Security, Culture, CI/CD. No guessing."**
@@ -45,14 +45,14 @@
 
 # 🎭 ACT III: The Outcome (X-Shaped Builders) ❌
 
-## 🟢 PROMPTER (A-ROLL) - 30s
+## 🟢 PROMPTER (A-ROLL) | 2:30 - 3:00 (30s)
 *(Action: Driving wildly but confidently 🏎️)*
 
 **"Now we drive. The Workshop. This is where we build. We don't just talk theory; we ship code. I've shipped 200+ repos 📦 this way. We turn your people into X-Shaped drivers—they can handle ANY terrain. Mud, snow, AI apocalypse? No problem."**
 
 ---
 
-## 🎙️ PROMPTER (VOICEOVER) - 120s
+## 🎙️ PROMPTER (VOICEOVER) | 3:00 - 5:00 (120s)
 *(Visuals: GitHub 200+ Repos 🐙, I-Shaped vs X-Shaped ❌, Delivery Pilot Board, Racing Team Image)*
 
 **"Proof is in the mileage. 200+ repositories delivered. This isn't a slide deck; it's a production line."**
@@ -65,7 +65,7 @@
 
 # 🎬 OUTRO
 
-## 🟢 PROMPTER (A-ROLL)
+## 🟢 PROMPTER (A-ROLL) | 5:00 - 5:05 (5s)
 *(Action: Tossing keys 🔑)*
 
 **"Your turn to drive. Link in bio."**
