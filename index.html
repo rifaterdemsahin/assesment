@@ -1,0 +1,399 @@
+import React, { useState } from 'react';
+
+const categories = [
+  { id: 'ci', name: 'CI/CD & AI-Powered Delivery', emoji: '🔄', color: 'from-blue-500 to-blue-600' },
+  { id: 'infra', name: 'Intelligent Infrastructure', emoji: '🏗️', color: 'from-purple-500 to-purple-600' },
+  { id: 'monitor', name: 'AIOps & Observability', emoji: '📊', color: 'from-green-500 to-green-600' },
+  { id: 'security', name: 'AI-Enhanced Security', emoji: '🔒', color: 'from-red-500 to-red-600' },
+  { id: 'culture', name: 'AI-First Culture', emoji: '🤝', color: 'from-orange-500 to-orange-600' },
+  { id: 'automation', name: 'Intelligent Automation', emoji: '🤖', color: 'from-teal-500 to-teal-600' }
+];
+
+const questions = [
+  // CI/CD & AI-Powered Delivery (4 questions)
+  { id: 1, cat: 'ci', q: '🚀 How does AI assist your deployment decisions?', opts: ['No AI involvement', 'Basic deployment scheduling', 'AI suggests optimal deploy windows', 'AI autonomously manages deployments with risk scoring'] },
+  { id: 2, cat: 'ci', q: '🔍 How do you use AI for code review and quality?', opts: ['Manual code reviews only', 'Basic linting tools', 'AI-powered code review (Copilot, CodeRabbit)', 'Full AI code analysis with auto-fixes and learning'] },
+  { id: 3, cat: 'ci', q: '📈 How does AI optimize your CI/CD pipeline performance?', opts: ['No optimization', 'Manual pipeline tuning', 'AI identifies bottlenecks', 'Self-optimizing pipelines with ML-driven caching'] },
+  { id: 4, cat: 'ci', q: '🎯 How do you use AI for release risk prediction?', opts: ['No risk assessment', 'Manual checklists', 'AI analyzes change risk scores', 'Predictive models block high-risk releases automatically'] },
+  
+  // Intelligent Infrastructure (4 questions)
+  { id: 5, cat: 'infra', q: '☁️ How does AI manage your infrastructure scaling?', opts: ['Manual scaling', 'Threshold-based autoscaling', 'Predictive autoscaling with ML', 'AI-driven autonomous infrastructure optimization'] },
+  { id: 6, cat: 'infra', q: '💰 How do you use AI for cloud cost optimization?', opts: ['No cost analysis', 'Manual cost reviews', 'AI cost anomaly detection', 'Autonomous AI cost optimization with FinOps integration'] },
+  { id: 7, cat: 'infra', q: '🔧 How does AI assist in infrastructure troubleshooting?', opts: ['Manual debugging', 'Log search tools', 'AI-powered root cause suggestions', 'Autonomous AI remediation with self-healing infrastructure'] },
+  { id: 8, cat: 'infra', q: '📋 How do you use AI for IaC generation and review?', opts: ['Manual IaC writing', 'Templates and modules', 'AI generates IaC from requirements', 'AI creates, reviews, and optimizes IaC with drift prediction'] },
+  
+  // AIOps & Observability (4 questions)
+  { id: 9, cat: 'monitor', q: '🔔 How does AI power your alerting system?', opts: ['Static threshold alerts', 'Dynamic thresholds', 'AI anomaly detection with correlation', 'Predictive alerting preventing incidents before they occur'] },
+  { id: 10, cat: 'monitor', q: '🧠 How mature is your AIOps implementation?', opts: ['No AIOps', 'Basic ML for metrics', 'AIOps platform with event correlation', 'Full AIOps with autonomous incident response'] },
+  { id: 11, cat: 'monitor', q: '📊 How does AI assist in log analysis?', opts: ['Manual log searching', 'Pattern matching rules', 'ML-powered log clustering and anomaly detection', 'AI understands context and predicts issues from logs'] },
+  { id: 12, cat: 'monitor', q: '🎯 How do you use AI for performance optimization?', opts: ['Reactive performance fixes', 'Basic APM tools', 'AI identifies performance patterns', 'AI autonomously optimizes application performance'] },
+  
+  // AI-Enhanced Security (4 questions)
+  { id: 13, cat: 'security', q: '🛡️ How does AI enhance your threat detection?', opts: ['Signature-based detection only', 'SIEM with basic rules', 'AI-powered threat hunting', 'Autonomous AI security with behavioral analysis'] },
+  { id: 14, cat: 'security', q: '🔐 How do you use AI for vulnerability management?', opts: ['Manual vulnerability scanning', 'Scheduled automated scans', 'AI prioritizes vulnerabilities by risk', 'AI predicts vulnerabilities and auto-patches'] },
+  { id: 15, cat: 'security', q: '🤖 How do you secure your AI/ML pipelines?', opts: ['No AI security considerations', 'Basic model access controls', 'ML model scanning and validation', 'Full MLSecOps with model monitoring and adversarial testing'] },
+  { id: 16, cat: 'security', q: '📝 How does AI assist in compliance management?', opts: ['Manual compliance audits', 'Automated compliance checks', 'AI monitors compliance continuously', 'AI predicts compliance risks and auto-remediates'] },
+  
+  // AI-First Culture (4 questions)
+  { id: 17, cat: 'culture', q: '🎓 How is your team trained on AI/ML for DevOps?', opts: ['No AI training', 'Basic awareness sessions', 'Structured AI/ML learning paths', 'Continuous AI upskilling with hands-on projects'] },
+  { id: 18, cat: 'culture', q: '💬 How do teams use AI assistants (ChatGPT, Claude, Copilot)?', opts: ['Not allowed or adopted', 'Individual experimentation', 'Team-approved AI tools with guidelines', 'AI assistants integrated into all workflows with governance'] },
+  { id: 19, cat: 'culture', q: '📚 How does AI help with knowledge management?', opts: ['Static documentation', 'Searchable wikis', 'AI-powered search and Q&A bots', 'AI generates and updates documentation automatically'] },
+  { id: 20, cat: 'culture', q: '🔄 How do you measure and improve AI adoption?', opts: ['No measurement', 'Ad-hoc feedback', 'AI usage metrics tracked', 'AI ROI measured with continuous improvement programs'] },
+  
+  // Intelligent Automation (4 questions)
+  { id: 21, cat: 'automation', q: '🧪 How does AI enhance your testing strategy?', opts: ['Manual test writing', 'Record and playback', 'AI generates test cases', 'AI creates, maintains, and self-heals tests autonomously'] },
+  { id: 22, cat: 'automation', q: '🔁 How do you use AI for incident auto-remediation?', opts: ['Manual incident response', 'Runbook automation', 'AI suggests remediation steps', 'AI autonomously resolves common incidents'] },
+  { id: 23, cat: 'automation', q: '📈 How does AI optimize your test execution?', opts: ['Run all tests every time', 'Basic test parallelization', 'AI selects relevant tests based on changes', 'Predictive test selection with ML-optimized execution'] },
+  { id: 24, cat: 'automation', q: '🌐 How do you use AI for synthetic monitoring and chaos engineering?', opts: ['Basic uptime checks', 'Scripted synthetic tests', 'AI-generated user journey tests', 'AI-driven chaos engineering with intelligent failure injection'] }
+];
+
+const levelColors = {
+  1: { bg: 'bg-red-100', border: 'border-red-400', text: 'text-red-700', name: 'AI Aware', emoji: '🔴' },
+  2: { bg: 'bg-orange-100', border: 'border-orange-400', text: 'text-orange-700', name: 'AI Experimenting', emoji: '🟠' },
+  3: { bg: 'bg-yellow-100', border: 'border-yellow-400', text: 'text-yellow-700', name: 'AI Integrated', emoji: '🟡' },
+  4: { bg: 'bg-green-100', border: 'border-green-400', text: 'text-green-700', name: 'AI Native', emoji: '🟢' }
+};
+
+const reportMapping = {
+  ci: { low: 'AI-Powered CI/CD Transformation Guide', high: 'Advanced MLOps Pipeline Optimization' },
+  infra: { low: 'Intelligent Infrastructure Automation Playbook', high: 'Autonomous Cloud Operations Framework' },
+  monitor: { low: 'AIOps Implementation Roadmap', high: 'Predictive Operations Excellence Guide' },
+  security: { low: 'AI Security & MLSecOps Adoption Plan', high: 'Zero-Trust AI Security Architecture' },
+  culture: { low: 'AI-First Culture Transformation Guide', high: 'Enterprise AI Center of Excellence Blueprint' },
+  automation: { low: 'Intelligent Test Automation Strategy', high: 'Autonomous DevOps Maturity Framework' }
+};
+
+export default function DevOpsAssessment() {
+  const [step, setStep] = useState('intro');
+  const [userInfo, setUserInfo] = useState({ name: '', org: '', role: '', email: '' });
+  const [answers, setAnswers] = useState({});
+  const [currentQ, setCurrentQ] = useState(0);
+
+  const handleAnswer = (qId, value) => {
+    setAnswers({ ...answers, [qId]: value });
+    if (currentQ < questions.length - 1) {
+      setTimeout(() => setCurrentQ(currentQ + 1), 300);
+    }
+  };
+
+  const calcScores = () => {
+    const scores = {};
+    categories.forEach(cat => {
+      const catQs = questions.filter(q => q.cat === cat.id);
+      const total = catQs.reduce((sum, q) => sum + (answers[q.id] || 0), 0);
+      scores[cat.id] = Math.round((total / (catQs.length * 3)) * 100);
+    });
+    scores.overall = Math.round(Object.values(scores).reduce((a, b) => a + b, 0) / 6);
+    return scores;
+  };
+
+  const getLevel = (score) => score < 25 ? 1 : score < 50 ? 2 : score < 75 ? 3 : 4;
+
+  const getDeliveryCapability = (scores) => {
+    const avg = scores.overall;
+    if (avg < 25) return { level: 'Foundation', desc: 'Focus on establishing AI-aware practices before scaling', icon: '🏗️' };
+    if (avg < 50) return { level: 'Developing', desc: 'Ready for pilot AI initiatives with guided implementation', icon: '🌱' };
+    if (avg < 75) return { level: 'Capable', desc: 'Can deliver AI-integrated DevOps transformations', icon: '⚡' };
+    return { level: 'Advanced', desc: 'Ready for autonomous operations and AI innovation leadership', icon: '🚀' };
+  };
+
+  const getRecommendations = (scores) => {
+    const recs = [];
+    categories.forEach(cat => {
+      const score = scores[cat.id];
+      const catInfo = categories.find(c => c.id === cat.id);
+      if (score < 50) {
+        recs.push({
+          priority: score < 25 ? 'Critical' : 'High',
+          area: catInfo.name,
+          emoji: catInfo.emoji,
+          score,
+          report: reportMapping[cat.id].low,
+          actions: getActions(cat.id, score)
+        });
+      } else if (score < 75) {
+        recs.push({
+          priority: 'Medium',
+          area: catInfo.name,
+          emoji: catInfo.emoji,
+          score,
+          report: reportMapping[cat.id].high,
+          actions: getActions(cat.id, score)
+        });
+      }
+    });
+    if (scores.overall >= 75) {
+      recs.push({
+        priority: 'Enhancement',
+        area: 'AI Innovation',
+        emoji: '✨',
+        score: scores.overall,
+        report: 'AI Innovation & Autonomous Operations Playbook',
+        actions: ['Implement self-healing systems', 'Build AI Center of Excellence', 'Lead industry AI adoption']
+      });
+    }
+    return recs.sort((a, b) => {
+      const order = { Critical: 0, High: 1, Medium: 2, Enhancement: 3 };
+      return order[a.priority] - order[b.priority];
+    });
+  };
+
+  const getActions = (catId, score) => {
+    const actionMap = {
+      ci: score < 25 ? ['Implement AI code review tools', 'Set up basic ML-assisted deployments'] : ['Enable predictive release risk', 'Implement self-optimizing pipelines'],
+      infra: score < 25 ? ['Adopt AI-powered IaC generation', 'Implement predictive autoscaling'] : ['Enable autonomous cost optimization', 'Deploy self-healing infrastructure'],
+      monitor: score < 25 ? ['Deploy AIOps platform', 'Implement AI anomaly detection'] : ['Enable predictive alerting', 'Implement autonomous incident response'],
+      security: score < 25 ? ['Implement AI threat detection', 'Enable ML vulnerability prioritization'] : ['Deploy MLSecOps pipeline', 'Enable autonomous security response'],
+      culture: score < 25 ? ['Launch AI training program', 'Establish AI tool governance'] : ['Build AI Center of Excellence', 'Implement AI ROI measurement'],
+      automation: score < 25 ? ['Adopt AI test generation', 'Implement intelligent test selection'] : ['Enable autonomous testing', 'Deploy AI chaos engineering']
+    };
+    return actionMap[catId] || [];
+  };
+
+  const generatePDFData = () => {
+    const scores = calcScores();
+    const delivery = getDeliveryCapability(scores);
+    return {
+      metadata: { generatedAt: new Date().toISOString(), version: '2.0-AI' },
+      userInfo,
+      scores,
+      overallLevel: getLevel(scores.overall),
+      levelName: levelColors[getLevel(scores.overall)].name,
+      deliveryCapability: delivery,
+      answers: Object.entries(answers).map(([qId, ans]) => {
+        const q = questions.find(qu => qu.id === parseInt(qId));
+        return { question: q.q, category: q.cat, answer: q.opts[ans], score: ans };
+      }),
+      recommendations: getRecommendations(scores),
+      roadmap: generateRoadmap(scores)
+    };
+  };
+
+  const generateRoadmap = (scores) => {
+    const phases = [];
+    const weakest = Object.entries(scores).filter(([k]) => k !== 'overall').sort((a, b) => a[1] - b[1]);
+    
+    phases.push({ phase: 'Phase 1: Foundation (0-3 months)', focus: weakest.slice(0, 2).map(([k]) => categories.find(c => c.id === k)?.name), goals: ['Establish AI tooling baseline', 'Quick wins in lowest scoring areas'] });
+    phases.push({ phase: 'Phase 2: Integration (3-6 months)', focus: weakest.slice(2, 4).map(([k]) => categories.find(c => c.id === k)?.name), goals: ['Deep AI integration', 'Cross-team AI adoption'] });
+    phases.push({ phase: 'Phase 3: Optimization (6-12 months)', focus: ['All Areas'], goals: ['Autonomous operations', 'AI-native practices', 'Continuous improvement'] });
+    return phases;
+  };
+
+  const copyN8NPayload = () => {
+    const data = generatePDFData();
+    navigator.clipboard.writeText(JSON.stringify(data, null, 2));
+    alert('✅ Assessment data copied! Send to your n8n webhook for AI-powered PDF generation.');
+  };
+
+  if (step === 'intro') {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-4 flex items-center justify-center">
+        <div className="max-w-2xl w-full bg-white/10 backdrop-blur-lg rounded-2xl p-6 text-white">
+          <div className="text-center mb-6">
+            <div className="text-5xl mb-3">🤖</div>
+            <h1 className="text-2xl font-bold mb-1">AI-Powered DevOps Maturity Assessment</h1>
+            <p className="text-gray-300 text-sm">24 questions • 30 minutes • AI-driven roadmap</p>
+          </div>
+          <div className="grid grid-cols-3 gap-2 mb-6">
+            {categories.map(cat => (
+              <div key={cat.id} className={`bg-gradient-to-r ${cat.color} rounded-lg p-2 text-center`}>
+                <div className="text-xl">{cat.emoji}</div>
+                <div className="text-xs mt-1">{cat.name}</div>
+              </div>
+            ))}
+          </div>
+          <div className="space-y-3 mb-4">
+            <input className="w-full p-3 rounded-lg bg-white/20 border border-white/30 placeholder-gray-400 text-sm" placeholder="👤 Your Name" value={userInfo.name} onChange={e => setUserInfo({...userInfo, name: e.target.value})} />
+            <input className="w-full p-3 rounded-lg bg-white/20 border border-white/30 placeholder-gray-400 text-sm" placeholder="🏢 Organization" value={userInfo.org} onChange={e => setUserInfo({...userInfo, org: e.target.value})} />
+            <input className="w-full p-3 rounded-lg bg-white/20 border border-white/30 placeholder-gray-400 text-sm" placeholder="💼 Your Role" value={userInfo.role} onChange={e => setUserInfo({...userInfo, role: e.target.value})} />
+            <input className="w-full p-3 rounded-lg bg-white/20 border border-white/30 placeholder-gray-400 text-sm" placeholder="📧 Email" type="email" value={userInfo.email} onChange={e => setUserInfo({...userInfo, email: e.target.value})} />
+          </div>
+          <button onClick={() => setStep('questions')} disabled={!userInfo.name || !userInfo.org} className="w-full py-3 bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg font-bold hover:opacity-90 transition disabled:opacity-50">
+            🚀 Start Assessment
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (step === 'questions') {
+    const q = questions[currentQ];
+    const cat = categories.find(c => c.id === q.cat);
+    const progress = ((currentQ + 1) / questions.length) * 100;
+    const answered = Object.keys(answers).length;
+
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-4">
+        <div className="max-w-2xl mx-auto">
+          <div className="mb-4">
+            <div className="flex justify-between text-white text-xs mb-1">
+              <span>Question {currentQ + 1} of {questions.length}</span>
+              <span>{Math.round(progress)}% Complete</span>
+            </div>
+            <div className="h-2 bg-white/20 rounded-full overflow-hidden">
+              <div className="h-full bg-gradient-to-r from-green-400 to-emerald-500 transition-all duration-500" style={{width: `${progress}%`}} />
+            </div>
+          </div>
+
+          <div className={`bg-gradient-to-r ${cat.color} rounded-t-xl p-3 flex items-center gap-2`}>
+            <span className="text-2xl">{cat.emoji}</span>
+            <span className="text-white font-semibold text-sm">{cat.name}</span>
+          </div>
+
+          <div className="bg-white rounded-b-xl p-5 shadow-2xl">
+            <h2 className="text-lg font-bold text-gray-800 mb-4">{q.q}</h2>
+            <div className="space-y-2">
+              {q.opts.map((opt, i) => (
+                <button key={i} onClick={() => handleAnswer(q.id, i)} className={`w-full p-3 rounded-lg border-2 text-left transition-all ${answers[q.id] === i ? 'border-purple-500 bg-purple-50' : 'border-gray-200 hover:border-purple-300'}`}>
+                  <div className="flex items-center gap-2">
+                    <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${answers[q.id] === i ? 'bg-purple-500 text-white' : 'bg-gray-100'}`}>
+                      {['🔴', '🟠', '🟡', '🟢'][i]}
+                    </div>
+                    <span className="text-sm font-medium flex-1">{opt}</span>
+                    {answers[q.id] === i && <span className="text-purple-500">✓</span>}
+                  </div>
+                </button>
+              ))}
+            </div>
+
+            <div className="flex gap-2 mt-4">
+              <button onClick={() => setCurrentQ(Math.max(0, currentQ - 1))} disabled={currentQ === 0} className="px-4 py-2 bg-gray-200 rounded-lg text-sm font-medium disabled:opacity-50">← Back</button>
+              {currentQ < questions.length - 1 ? (
+                <button onClick={() => setCurrentQ(currentQ + 1)} className="flex-1 py-2 bg-purple-600 text-white rounded-lg text-sm font-medium hover:bg-purple-700">Next →</button>
+              ) : (
+                <button onClick={() => setStep('results')} disabled={answered < questions.length} className="flex-1 py-2 bg-green-600 text-white rounded-lg text-sm font-medium hover:bg-green-700 disabled:opacity-50">
+                  📊 View Results
+                </button>
+              )}
+            </div>
+          </div>
+
+          <div className="flex gap-1 mt-3 justify-center flex-wrap">
+            {questions.map((_, i) => (
+              <button key={i} onClick={() => setCurrentQ(i)} className={`w-5 h-5 rounded text-xs font-medium transition ${i === currentQ ? 'bg-white text-purple-600' : answers[questions[i].id] !== undefined ? 'bg-green-500 text-white' : 'bg-white/20 text-white'}`}>
+                {i + 1}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (step === 'results') {
+    const scores = calcScores();
+    const recs = getRecommendations(scores);
+    const level = getLevel(scores.overall);
+    const lc = levelColors[level];
+    const delivery = getDeliveryCapability(scores);
+    const roadmap = generateRoadmap(scores);
+
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-4">
+        <div className="max-w-4xl mx-auto space-y-4">
+          <div className="bg-white rounded-2xl p-6 shadow-2xl">
+            <div className="text-center mb-6">
+              <h1 className="text-2xl font-bold text-gray-800 mb-1">🤖 AI DevOps Maturity Report</h1>
+              <p className="text-gray-500 text-sm">{userInfo.name} • {userInfo.org} • {userInfo.role}</p>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4 mb-6">
+              <div className={`${lc.bg} ${lc.border} border-2 rounded-xl p-4 text-center`}>
+                <div className="text-4xl mb-1">{lc.emoji}</div>
+                <div className={`text-2xl font-bold ${lc.text}`}>{scores.overall}%</div>
+                <div className={`text-sm ${lc.text}`}>Level {level}: {lc.name}</div>
+              </div>
+              <div className="bg-blue-50 border-2 border-blue-400 rounded-xl p-4 text-center">
+                <div className="text-4xl mb-1">{delivery.icon}</div>
+                <div className="text-lg font-bold text-blue-700">{delivery.level}</div>
+                <div className="text-xs text-blue-600">{delivery.desc}</div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
+              {categories.map(cat => {
+                const score = scores[cat.id];
+                const l = getLevel(score);
+                const c = levelColors[l];
+                return (
+                  <div key={cat.id} className={`${c.bg} rounded-lg p-3 border ${c.border}`}>
+                    <div className="flex items-center gap-1 mb-1">
+                      <span className="text-lg">{cat.emoji}</span>
+                      <span className="font-semibold text-gray-700 text-xs">{cat.name}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <div className={`h-full bg-gradient-to-r ${cat.color}`} style={{width: `${score}%`}} />
+                      </div>
+                      <span className={`font-bold text-sm ${c.text}`}>{score}%</span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="mb-6">
+              <h2 className="text-lg font-bold text-gray-800 mb-3">📋 Recommended Reports & Actions</h2>
+              <div className="space-y-2">
+                {recs.slice(0, 4).map((rec, i) => (
+                  <div key={i} className={`p-3 rounded-lg border-l-4 ${rec.priority === 'Critical' ? 'bg-red-50 border-red-500' : rec.priority === 'High' ? 'bg-orange-50 border-orange-500' : rec.priority === 'Medium' ? 'bg-yellow-50 border-yellow-500' : 'bg-blue-50 border-blue-500'}`}>
+                    <div className="flex justify-between items-start gap-2">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className={`text-xs font-bold px-2 py-0.5 rounded ${rec.priority === 'Critical' ? 'bg-red-200 text-red-700' : rec.priority === 'High' ? 'bg-orange-200 text-orange-700' : rec.priority === 'Medium' ? 'bg-yellow-200 text-yellow-700' : 'bg-blue-200 text-blue-700'}`}>
+                            {rec.priority}
+                          </span>
+                          <span className="text-sm font-semibold">{rec.emoji} {rec.area}</span>
+                          <span className="text-xs text-gray-500">({rec.score}%)</span>
+                        </div>
+                        <div className="text-xs text-gray-600">
+                          {rec.actions.map((a, j) => <span key={j} className="inline-block mr-2">• {a}</span>)}
+                        </div>
+                      </div>
+                      <div className="text-right shrink-0">
+                        <div className="text-xs font-medium text-purple-600">📄 {rec.report}</div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="mb-6">
+              <h2 className="text-lg font-bold text-gray-800 mb-3">🗺️ Transformation Roadmap</h2>
+              <div className="space-y-2">
+                {roadmap.map((phase, i) => (
+                  <div key={i} className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg p-3 border border-purple-200">
+                    <div className="font-semibold text-purple-800 text-sm">{phase.phase}</div>
+                    <div className="text-xs text-gray-600 mt-1">
+                      <span className="font-medium">Focus:</span> {phase.focus.join(', ')}
+                    </div>
+                    <div className="text-xs text-gray-500 mt-1">
+                      {phase.goals.map((g, j) => <span key={j} className="inline-block mr-2">✓ {g}</span>)}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-gray-50 rounded-xl p-4">
+              <h2 className="text-sm font-bold text-gray-800 mb-2">🔗 n8n Integration for AI PDF Generation</h2>
+              <p className="text-xs text-gray-600 mb-3">Copy assessment data to send to your n8n webhook. The AI model will generate a detailed PDF report.</p>
+              <div className="flex gap-2">
+                <button onClick={copyN8NPayload} className="flex-1 py-2 bg-purple-600 text-white rounded-lg text-sm font-medium hover:bg-purple-700">
+                  📋 Copy Assessment JSON
+                </button>
+                <button onClick={() => setStep('intro')} className="px-4 py-2 bg-gray-300 rounded-lg text-sm font-medium hover:bg-gray-400">
+                  🔄 Restart
+                </button>
+              </div>
+              <pre className="mt-3 p-3 bg-gray-800 text-green-400 rounded-lg text-xs overflow-auto max-h-32">
+                {JSON.stringify(generatePDFData(), null, 2)}
+              </pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
