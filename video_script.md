@@ -1,7 +1,21 @@
 # 🎬 Video Script: The ATW Protocol (All-Terrain Workforce) 🚙💨
-**Total A-Roll Time:** ~60 Seconds ⏱️
+
+## 🚀 Viral Title & Thumbnail Ideas
+**Title Options:**
+1.  **"Why Senior Devs Are Getting Buried (And How to Survive)"** 📉
+2.  **"I Shipped 200 Repos. Here's My Secret Weapon."** 🤫
+3.  **"The AI Avalanche is Here. Get in the Vehicle."** 🌨️
+
+**Thumbnail Concept:**
+*   **Visual:** Rifat driving a futuristic, mud-splattered buggy (labeled "ATW") escaping a massive avalanche of binary code and "Old Tech" logos.
+*   **Text Overlay:** "DON'T GET BURIED" or "SURVIVE THE SHIFT".
+*   **Expression:** Intense focus (not fear).
+
+---
+
+**Total A-Roll Time:** ~75 Seconds ⏱️
 **Total B-Roll Time:** ~240 Seconds 🖥️
-**Total Video Length:** ~5 Minutes 📼
+**Total Video Length:** ~5.5 Minutes 📼
 
 ---
 
@@ -63,10 +77,15 @@
 
 ---
 
-# 🎬 OUTRO
+# 🎬 OUTRO & APPLY (The Offer) 🎁
 
-## 🟢 PROMPTER (A-ROLL) | 5:00 - 5:05 (5s)
+## 🟢 PROMPTER (A-ROLL) | 5:00 - 5:15 (15s)
+*(Action: Leaning on the buggy, holding a tablet)*
+
+**"Here's the deal. For the first 10 people, the Assessment is completely FREE. I'm also dropping the 1-1 Analysis to just $50—that's prosumer pricing. Plus, you get the 'AI Architect' course for free."**
+
+## 🟢 PROMPTER (A-ROLL) | 5:15 - 5:25 (10s)
 *(Action: Tossing keys 🔑)*
 
-**"Your turn to drive. Link in bio."**
+**"And hey, this tool is open source. Fork it. Build your own version. Just don't stand still. Link in bio. Let's drive."**
 
