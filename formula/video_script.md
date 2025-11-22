@@ -217,14 +217,14 @@ Most markdown previewers block local file access via absolute paths (`file:///..
 ## 🟢 PROMPTER (A-ROLL) | 0:00 - 0:10 (10s)
 *(Action: Holding tiny umbrella ☂️, looking scared)*
 
-**"Feel that? That's the AI Avalanche. 🌨️ It's huge. It's fast. And if you're just standing there with your old resume, you're toast. You don't need an umbrella, folks. You need a ride."**
+**"Feel that? That's the AI Avalanche. 🌨️ And yes, I *did* just make up a term to sell you something. But hear me out—if you're just standing there with your old resume, you're toast. You don't need an umbrella, folks. You need a ride."**
 
 ---
 
 ## 🎙️ PROMPTER (VOICEOVER) | 0:10 - 0:30 (20s)
 *(Visuals: Fast montage: Graph shooting up 📈 -> Job description scrolling -> Confused stick figure)*
 
-**"Companies don't want 'coders' anymore. They want Wizards. 🧙‍♂️ The ground is shaking. Your old map? Trash. We need a better way to move through this mess without getting buried."**
+**"Companies don't want 'coders' anymore. They want Wizards. 🧙‍♂️ Meanwhile, Dave from accounting is still updating his LinkedIn to say 'proficient in jQuery.' Dave. Buddy. It's 2025. We need a better way to move through this mess without getting buried."**
 
 **🎨 Image Prompt (The Avalanche):** `A chaotic, stylized 3D animation of an office worker standing on a crumbling cliff edge, looking up at a massive wave of glowing AI icons (ChatGPT, Python, Docker) crashing down like an avalanche, Pixar style.`
 
@@ -238,7 +238,7 @@ Most markdown previewers block local file access via absolute paths (`file:///..
 ## 🟢 PROMPTER (A-ROLL) | 0:30 - 0:50 (20s)
 *(Action: Slapping hood of futuristic buggy 🏎️)*
 
-**"Meet the ATW. Assess. Train. Workshop. This is your All Terrain Vehicle. It eats chaos for breakfast. It turns your team from scared hikers into off-road beasts. Let's pop the hood."**
+**"Meet the ATW. Assess. Train. Workshop. She's not pretty. She smells like burnt Docker containers and regret. But she'll get you there. *(pats hood)* Sorry baby, I didn't mean that. You're beautiful. Let's pop the hood."**
 
 ---
 
@@ -251,7 +251,7 @@ Most markdown previewers block local file access via absolute paths (`file:///..
 
 **"Then, Upgrades. We don't do boring lectures. We install new parts. MLSecOps tires. AIOps suspension. Shiny and chrome."**
 
-**"This isn't random. It's engineering. The Assessment tells us what to Train. The Training gets the car ready to race."**
+**"This isn't random. It's engineering. The Assessment tells us what to Train. The Training gets the car ready to race. *(looks at camera)* Yes, I rehearsed that. No, I won't apologize."**
 
 **🎨 Image Prompt (The Blueprint):** `A glowing blue holographic blueprint of a futuristic all-terrain vehicle, with parts labeled 'Assessment' (Engine), 'Training' (Tires), and 'Workshop' (Chassis), high-tech garage background, cyberpunk aesthetic.`
 
@@ -265,7 +265,7 @@ Most markdown previewers block local file access via absolute paths (`file:///..
 ## 🟢 PROMPTER (A-ROLL) | 1:50 - 2:20 (30s)
 *(Action: Driving wildly but confidently 🏎️)*
 
-**"Now we drive. The Workshop. This is where we actually build stuff. We don't just talk theory; we ship code. I've shipped 200+ repos 📦 this way. We turn your people into X-Shaped drivers—they can handle ANY terrain. Mud, snow, AI apocalypse? No problem."**
+**"Now we drive. The Workshop. This is where we actually build stuff. We don't just talk theory; we ship code. I've shipped 200+ repos 📦 this way. *(beat)* Some of them even worked. We turn your people into X-Shaped drivers—they can handle ANY terrain. Mud, snow, AI apocalypse? No problem. *(Yelling out window)* MOVE, UMBRELLA GUY!"**
 
 ---
 
