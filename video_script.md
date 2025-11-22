@@ -89,3 +89,32 @@
 
 **"And hey, this tool is open source. Fork it. Build your own version. Just don't stand still. Link in bio. Let's drive."**
 
+
+---
+
+## 🧠 Educational Framework (Tell-Show-Do-Apply)
+*Focus: From Concept to Application ("Learned to Apply")*
+
+### 1. TELL (The Concept) 🗣️
+*   **Section:** Act I (The Problem) & Act II Intro.
+*   **Content:** The "AI Avalanche" and the "ATW Vehicle" metaphor.
+*   **Goal:** Explain **WHY** the old way fails and **WHAT** the new solution (Assess-Train-Workshop) is. We *tell* them the mental model: "Don't walk, drive."
+
+### 2. SHOW (The Demonstration) 👁️
+*   **Section:** Act II B-Roll (The Assessment & Report).
+*   **Content:** Screen captures of `index.html`, the Report logic, and the Training links.
+*   **Goal:** Demonstrate **HOW** the tool works. We *show* the engine check, the diagnostic report, and the upgrade path. It's not abstract; it's visible software.
+
+### 3. DO (The Practice) 🛠️
+*   **Section:** Act III (The Workshop & Proof).
+*   **Content:** Rifat's 200+ Repos and the "Workshop" explanation.
+*   **Goal:** Illustrate the **ACTION**. This isn't just learning; it's building. The "Do" phase is the collaborative workshop where "I-shaped" becomes "X-shaped" by shipping real code.
+
+### 4. APPLY (The Transfer) 🚀
+*   **Section:** Outro & Apply (The Offer).
+*   **Content:** The Call to Action ("Fork it", "First 10 Free", "Build your own").
+*   **Goal:** **Learned to Apply.** The viewer is explicitly invited to take the wheel.
+    *   **Immediate Application:** Take the free assessment.
+    *   **Deep Application:** Fork the open-source tool and customize it.
+    *   **Professional Application:** Book the 1-1 analysis or Workshop.
+    *   *Key Message:* "Don't just watch me drive. Here are the keys." 🔑
