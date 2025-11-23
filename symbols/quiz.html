@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATW Protocol Assessment: Diagnostic Engine Check</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #0056b3;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #333;
+            margin-top: 25px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="email"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .radio-group label {
+            font-weight: normal;
+            display: inline-block;
+            margin-right: 15px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>The ATW Protocol: Diagnostic Engine Check 🔧</h1>
+    <p>This initial assessment helps us determine your starting point and tailor your training ("Upgrades") based on your current knowledge and hands-on experience.</p>
+
+    <form action="/submit-assessment" method="post">
+
+        <h2>Section 1: Identity and Professional Context</h2>
+
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="email" required>
+        
+        <label for="role">Current Role/Title:</label>
+        <input type="text" id="role" name="role" required>
+
+        <label for="background">Professional Background:</label>
+        <div class="radio-group">
+            <p>Are you primarily a **Deterministic** (Developer/Technical) or **Non-Deterministic** (Business/Non-Dev) professional?</p>
+            <input type="radio" id="dev" name="background" value="Deterministic" required>
+            <label for="dev">Deterministic (Dev/Technical)</label><br>
+            <input type="radio" id="non-dev" name="background" value="Non-Deterministic">
+            <label for="non-dev">Non-Deterministic (Business/Non-Dev)</label>
+        </div>
+
+        <h2>Section 2: Hands-on Delivery and Portfolio (CVS as Code)</h2>
+
+        <label for="github_link">GitHub Link:</label>
+        <input type="text" id="github_link" name="github_link" placeholder="We audit your Git projects here (Proof is in the mileage).">
+        
+        <label for="ai_learning">Describe your current AI learning space:</label>
+        <textarea id="ai_learning" name="ai_learning" rows="4" placeholder="Mention your prompts, projects, and recent experiments with AI tools."></textarea>
+
+        <label for="portfolio_goal">What is your primary goal for building a portfolio?</label>
+        <select id="portfolio_goal" name="portfolio_goal" required>
+            <option value="">Select one...</option>
+            <option value="stand_out">Stand out in job interviews / Build credible portfolio</option>
+            <option value="lead_initiatives">Lead AI initiatives in my organization</option>
+            <option value="transition">Transition into an AI/tech role</option>
+            <option value="structure">Gain structure and fix knowledge gaps</option>
+        </select>
+        
+        <h2>Section 3: Mindset and Challenges</h2>
+
+        <label for="pain_point">Which pain point resonates most with you?</label>
+        <select id="pain_point" name="pain_point" required>
+            <option value="">Select one...</option>
+            <option value="tutorial_hell">Struggles with "tutorial hell"—can follow along but can't build independently</option>
+            <option value="certificates">Feels overwhelmed by credential inflation (certificates becoming obsolete quickly)</option>
+            <option value="abstract">Overwhelmed by abstract concepts; needs real-world application</option>
+            <option value="structure_unknown">Struggles with structure and the fear of the unknown</option>
+        </select>
+
+        <label for="delivery_value">Do you value certificates and lectures, or hands-on delivery and shipping code?</label>
+        <div class="radio-group">
+            <input type="radio" id="delivery_value_hands" name="delivery_value" value="Hands-on Delivery" required>
+            <label for="delivery_value_hands">Hands-on Delivery (Shipping Code)</label><br>
+            <input type="radio" id="delivery_value_certs" name="delivery_value" value="Certificates/Lectures">
+            <label for="delivery_value_certs">Certificates/Lectures</label>
+        </div>
+        
+        <p style="margin-top: 30px;">
+            <button type="submit">Submit Assessment & Claim Offer (First 10 get FREE 1-1 Analysis) 🔑</button>
+        </p>
+    </form>
+</div>
+
+</body>
+</html>
