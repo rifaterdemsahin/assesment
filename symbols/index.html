@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI-Powered DevOps Maturity Assessment</title>
+  <title>Professional AI Maturity Assessment</title>
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -203,16 +203,63 @@
         alert('✅ Assessment data copied! Send to your n8n webhook for AI-powered PDF generation.');
       };
 
-      const downloadPDF = () => {
-        const element = document.getElementById('root');
-        const opt = {
-          margin: 10,
-          filename: 'DevOps_Maturity_Report.pdf',
-          image: { type: 'jpeg', quality: 0.98 },
-          html2canvas: { scale: 2 },
-          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        };
-        html2pdf().set(opt).from(element).save();
+      const submitToN8N = async () => {
+        try {
+          const data = generatePDFData();
+          const webhookUrl = 'https://n8n.rifaterdemsahin.com/webhook/cf41ca7a-08d2-4e11-8fd6-a45ea481d52f';
+          
+          const response = await fetch(webhookUrl, {
+            method: 'POST',
+            headers: { 
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          const result = await response.json().catch(() => ({ success: true }));
+          alert('✅ Assessment submitted successfully to n8n webhook!');
+          console.log('Submission result:', result);
+        } catch (error) {
+          console.error('Submission error:', error);
+          alert('❌ Failed to submit assessment. Error: ' + error.message);
+        }
+      };
+
+      const downloadPDF = async () => {
+        try {
+          // Check if html2pdf is loaded
+          if (typeof html2pdf === 'undefined') {
+            alert('❌ PDF library not loaded. Please refresh the page and try again.');
+            return;
+          }
+
+          const element = document.getElementById('root');
+          if (!element) {
+            alert('❌ Could not find content to export. Please try again.');
+            return;
+          }
+
+          // Ensure content is fully rendered
+          await new Promise(resolve => setTimeout(resolve, 100));
+
+          const opt = {
+            margin: 10,
+            filename: 'Professional_AI_Maturity_Report.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, useCORS: true, logging: false },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+          };
+
+          await html2pdf().set(opt).from(element).save();
+          console.log('✅ PDF generated successfully');
+        } catch (error) {
+          console.error('PDF generation error:', error);
+          alert('❌ Failed to generate PDF. Error: ' + error.message);
+        }
       };
 
       if (step === 'intro') {
@@ -221,7 +268,7 @@
             <div className="max-w-2xl w-full bg-white/10 backdrop-blur-lg rounded-2xl p-6 text-white">
               <div className="text-center mb-6">
                 <div className="text-5xl mb-3">🤖</div>
-                <h1 className="text-2xl font-bold mb-1">AI-Powered DevOps Maturity Assessment</h1>
+                <h1 className="text-2xl font-bold mb-1">Professional AI Maturity Assessment</h1>
                 <p className="text-gray-300 text-sm">24 questions • 30 minutes • AI-driven roadmap</p>
               </div>
               <div className="grid grid-cols-3 gap-2 mb-6">
@@ -408,16 +455,19 @@
 
                 <div className="bg-gray-50 rounded-xl p-4">
                   <h2 className="text-sm font-bold text-gray-800 mb-2">🔗 n8n Integration for AI PDF Generation</h2>
-                  <p className="text-xs text-gray-600 mb-3">Copy assessment data to send to your n8n webhook. The AI model will generate a detailed PDF report.</p>
-                  <div className="flex gap-2">
-                    <button onClick={copyN8NPayload} className="flex-1 py-2 bg-purple-600 text-white rounded-lg text-sm font-medium hover:bg-purple-700">
-                      📋 Copy Assessment JSON
+                  <p className="text-xs text-gray-600 mb-3">Submit your assessment data directly to the n8n webhook or copy it for manual submission. The AI model will generate a detailed PDF report.</p>
+                  <div className="flex gap-2 flex-wrap">
+                    <button onClick={submitToN8N} className="flex-1 py-2 bg-green-600 text-white rounded-lg text-sm font-medium hover:bg-green-700">
+                      📤 Submit JSON
                     </button>
-                    <button onClick={() => setStep('intro')} className="px-4 py-2 bg-gray-300 rounded-lg text-sm font-medium hover:bg-gray-400">
-                      🔄 Restart
+                    <button onClick={copyN8NPayload} className="flex-1 py-2 bg-purple-600 text-white rounded-lg text-sm font-medium hover:bg-purple-700">
+                      📋 Copy JSON
                     </button>
                     <button onClick={downloadPDF} className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700">
                       📥 Download PDF
+                    </button>
+                    <button onClick={() => setStep('intro')} className="px-4 py-2 bg-gray-300 rounded-lg text-sm font-medium hover:bg-gray-400">
+                      🔄 Restart
                     </button>
                   </div>
                   <pre className="mt-3 p-3 bg-gray-800 text-green-400 rounded-lg text-xs overflow-auto max-h-32">
