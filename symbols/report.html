@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps AI Maturity Report Generator</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #1f2937; }
+        
+        /* Report Container - A4 specific styling */
+        #report-wrapper {
+            display: none; /* Hidden until generated */
+        }
+        
+        #report-container {
+            width: 800px;
+            min-height: 1100px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .break-inside-avoid { page-break-inside: avoid; }
+        
+        .score-circle {
+            background: conic-gradient(#4f46e5 var(--score-percent), #e5e7eb 0deg);
+        }
+    </style>
+</head>
+<body class="text-gray-100">
+
+    <div class="max-w-4xl mx-auto p-6">
+        <h1 class="text-2xl font-bold mb-4 text-white">1. Input JSON Data</h1>
+        <p class="text-gray-400 text-sm mb-2">Paste your JSON response below (including body/userInfo/scores structure).</p>
+        
+        <textarea id="jsonInput" class="w-full h-64 p-4 text-sm text-gray-800 bg-gray-50 rounded-lg border border-gray-600 focus:ring-2 focus:ring-indigo-500 font-mono" placeholder='Paste JSON here...'>{
+    "body": {
+      "metadata": {
+        "generatedAt": "2025-12-05T13:06:37.876Z",
+        "version": "2.0-AI"
+      },
+      "userInfo": {
+        "name": "User",
+        "org": "Acme Corp",
+        "role": "CTO",
+        "email": "demo@acme.com"
+      },
+      "scores": {
+        "ci": 33,
+        "infra": 58,
+        "monitor": 67,
+        "security": 75,
+        "culture": 58,
+        "automation": 83,
+        "overall": 62
+      },
+      "overallLevel": 3,
+      "levelName": "AI Integrated",
+      "deliveryCapability": {
+        "level": "Capable",
+        "desc": "Can deliver AI-integrated DevOps transformations",
+        "icon": "⚡"
+      },
+      "recommendations": [
+        {
+          "priority": "High",
+          "area": "CI/CD & AI-Powered Delivery",
+          "emoji": "🔄",
+          "report": "AI-Powered CI/CD Transformation Guide",
+          "actions": [
+            "Enable predictive release risk",
+            "Implement self-optimizing pipelines"
+          ]
+        },
+        {
+          "priority": "Medium",
+          "area": "Intelligent Infrastructure",
+          "emoji": "🏗️",
+          "report": "Autonomous Cloud Operations Framework",
+          "actions": [
+            "Enable autonomous cost optimization",
+            "Deploy self-healing infrastructure"
+          ]
+        }
+      ],
+      "roadmap": [
+        {
+          "phase": "Phase 1: Foundation (0-3 months)",
+          "focus": ["CI/CD", "Infra"],
+          "goals": ["Establish AI tooling baseline", "Quick wins in lowest scoring areas"]
+        },
+        {
+          "phase": "Phase 2: Integration (3-6 months)",
+          "focus": ["Culture", "AIOps"],
+          "goals": ["Deep AI integration", "Cross-team AI adoption"]
+        }
+      ]
+    }
+}</textarea>
+        
+        <div class="mt-4 flex gap-4">
+            <button onclick="processJSON()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition flex items-center">
+                <span>🔄 Generate Report Preview</span>
+            </button>
+        </div>
+    </div>
+
+    <div id="report-wrapper" class="py-8 bg-gray-200">
+        <div class="max-w-[800px] mx-auto mb-4 flex justify-between items-center px-2">
+            <h2 class="text-xl font-bold text-gray-800">Report Preview</h2>
+            <button onclick="downloadPDF()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded shadow transition flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                Download PDF
+            </button>
+        </div>
+
+        <div id="report-container" class="p-8 text-gray-800">
+            
+            <header class="border-b-2 border-indigo-600 pb-6 mb-8 flex justify-between items-start">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900">DevOps AI Maturity Assessment</h1>
+                    <p class="text-gray-500 mt-1">Generated on: <span id="r-date"></span></p>
+                </div>
+                <div class="text-right">
+                    <div class="text-sm text-gray-500">Prepared for:</div>
+                    <div class="font-semibold text-lg" id="r-org">Organization</div>
+                    <div class="text-gray-600" id="r-email">email@example.com</div>
+                </div>
+            </header>
+
+            <section class="grid grid-cols-3 gap-6 mb-8 break-inside-avoid">
+                <div class="col-span-1 bg-gray-50 rounded-xl p-6 flex flex-col items-center justify-center border border-gray-200">
+                    <div class="relative w-32 h-32 rounded-full flex items-center justify-center score-circle mb-4" id="r-score-ring">
+                        <div class="w-28 h-28 bg-white rounded-full flex flex-col items-center justify-center">
+                            <span class="text-3xl font-bold text-indigo-600" id="r-score">0</span>
+                            <span class="text-xs text-gray-400">OUT OF 100</span>
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-gray-800" id="r-level-name">Level</h3>
+                </div>
+
+                <div class="col-span-2 bg-indigo-50 rounded-xl p-6 border border-indigo-100 flex flex-col justify-center">
+                    <h3 class="text-indigo-800 font-bold mb-2 text-lg">Delivery Capability <span id="r-icon"></span></h3>
+                    <p class="text-gray-700 mb-2" id="r-desc">Description...</p>
+                    <div class="mt-2 inline-block bg-indigo-200 text-indigo-800 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wide" id="r-cap-level">
+                        Level
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-10 break-inside-avoid">
+                <h2 class="text-xl font-bold text-gray-900 mb-4 border-l-4 border-indigo-500 pl-3">Category Breakdown</h2>
+                <div class="bg-white p-4 border rounded-lg h-80 w-full flex justify-center relative">
+                    <canvas id="scoresChart"></canvas>
+                </div>
+            </section>
+
+            <section class="mb-10 break-inside-avoid">
+                <h2 class="text-xl font-bold text-gray-900 mb-4 border-l-4 border-indigo-500 pl-3">Strategic Recommendations</h2>
+                <div id="recommendations-list" class="space-y-4"></div>
+            </section>
+
+            <section class="mb-8 break-inside-avoid">
+                <h2 class="text-xl font-bold text-gray-900 mb-4 border-l-4 border-indigo-500 pl-3">Transformation Roadmap</h2>
+                <div id="roadmap-list" class="grid grid-cols-1 gap-4"></div>
+            </section>
+            
+            <footer class="text-center text-gray-400 text-sm mt-12 pt-6 border-t">
+                <p>DevOps AI Maturity Assessment Engine v2.0-AI</p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        let chartInstance = null;
+        let currentOrgName = "Report";
+
+        function processJSON() {
+            const inputStr = document.getElementById('jsonInput').value;
+            let data;
+
+            try {
+                const parsed = JSON.parse(inputStr);
+                // Handle if user pasted full request object OR just the body
+                // Your example had the data inside a "body" key.
+                if (parsed.body) {
+                    data = parsed.body;
+                } else {
+                    data = parsed;
+                }
+                
+                // Validate essential fields exist
+                if (!data.scores || !data.recommendations) {
+                    throw new Error("Missing 'scores' or 'recommendations' in JSON");
+                }
+
+                renderReport(data);
+                
+                // Show the report section
+                document.getElementById('report-wrapper').style.display = 'block';
+                document.getElementById('report-wrapper').scrollIntoView({ behavior: 'smooth' });
+
+            } catch (e) {
+                alert("Error parsing JSON: " + e.message + "\nPlease check the format.");
+            }
+        }
+
+        function renderReport(data) {
+            // 1. Text Details
+            currentOrgName = data.userInfo?.org || "Organization";
+            document.getElementById('r-date').innerText = new Date().toLocaleDateString();
+            document.getElementById('r-org').innerText = currentOrgName;
+            document.getElementById('r-email').innerText = data.userInfo?.email || "";
+            
+            // 2. Score Circle
+            const score = data.scores.overall;
+            document.getElementById('r-score').innerText = score;
+            document.getElementById('r-score-ring').style.setProperty('--score-percent', `${score}%`);
+            document.getElementById('r-level-name').innerText = data.levelName || "N/A";
+
+            // 3. Capability Box
+            const cap = data.deliveryCapability || {};
+            document.getElementById('r-desc').innerText = cap.desc || "";
+            document.getElementById('r-cap-level').innerText = cap.level || "";
+            document.getElementById('r-icon').innerText = cap.icon || "";
+
+            // 4. Chart.js Logic
+            const ctx = document.getElementById('scoresChart').getContext('2d');
+            
+            // Destroy existing chart to prevent overlay bugs
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+
+            chartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['CI/CD', 'Infra', 'Monitor', 'Security', 'Culture', 'Automation'],
+                    datasets: [{
+                        label: 'Maturity Score',
+                        data: [
+                            data.scores.ci || 0,
+                            data.scores.infra || 0,
+                            data.scores.monitor || 0,
+                            data.scores.security || 0,
+                            data.scores.culture || 0,
+                            data.scores.automation || 0
+                        ],
+                        backgroundColor: '#4f46e5',
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: { duration: 0 }, // crucial for PDF rendering
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { beginAtZero: true, max: 100 }
+                    }
+                }
+            });
+
+            // 5. Recommendations List
+            const recContainer = document.getElementById('recommendations-list');
+            recContainer.innerHTML = ''; // Clear old data
+            
+            if(data.recommendations) {
+                data.recommendations.forEach(rec => {
+                    const badgeColor = rec.priority === 'High' ? 'bg-red-100 text-red-800' : 'bg-blue-100 text-blue-800';
+                    const actionsHtml = rec.actions ? rec.actions.map(a => `<li>${a}</li>`).join('') : '';
+                    
+                    const html = `
+                        <div class="bg-white border rounded-lg p-4 shadow-sm flex items-start space-x-4">
+                            <div class="text-3xl bg-gray-50 p-2 rounded">${rec.emoji || '📋'}</div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-center mb-1">
+                                    <h4 class="font-bold text-gray-800">${rec.area}</h4>
+                                    <span class="text-xs font-bold px-2 py-1 rounded ${badgeColor}">${rec.priority} Priority</span>
+                                </div>
+                                <p class="text-sm text-gray-600 italic mb-2">${rec.report}</p>
+                                <ul class="list-disc list-inside text-sm text-gray-700">
+                                    ${actionsHtml}
+                                </ul>
+                            </div>
+                        </div>
+                    `;
+                    recContainer.insertAdjacentHTML('beforeend', html);
+                });
+            }
+
+            // 6. Roadmap List
+            const mapContainer = document.getElementById('roadmap-list');
+            mapContainer.innerHTML = ''; // Clear old data
+
+            if(data.roadmap) {
+                data.roadmap.forEach(phase => {
+                    const goalsHtml = phase.goals ? phase.goals.map(g => `<li>${g}</li>`).join('') : '';
+                    const html = `
+                        <div class="border-l-4 border-gray-300 pl-4 py-2 bg-gray-50 rounded-r">
+                            <h4 class="font-bold text-indigo-700">${phase.phase}</h4>
+                            <ul class="list-disc list-inside text-sm text-gray-600 mt-1">
+                                ${goalsHtml}
+                            </ul>
+                        </div>
+                    `;
+                    mapContainer.insertAdjacentHTML('beforeend', html);
+                });
+            }
+        }
+
+        function downloadPDF() {
+            const element = document.getElementById('report-container');
+            const opt = {
+                margin:       0,
+                filename:     `DevOps_AI_Report_${currentOrgName}.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, logging: false, useCORS: true },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(element).save();
+        }
+    </script>
+</body>
+</html>
