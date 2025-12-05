@@ -220,7 +220,13 @@
             throw new Error(`HTTP error! status: ${response.status}`);
           }
 
-          const result = await response.json().catch(() => ({ success: true }));
+          let result;
+          try {
+            result = await response.json();
+          } catch {
+            // Response might not be JSON, which is okay for webhooks
+            result = { status: 'submitted' };
+          }
           alert('✅ Assessment submitted successfully to n8n webhook!');
           console.log('Submission result:', result);
         } catch (error) {
@@ -457,16 +463,16 @@
                   <h2 className="text-sm font-bold text-gray-800 mb-2">🔗 n8n Integration for AI PDF Generation</h2>
                   <p className="text-xs text-gray-600 mb-3">Submit your assessment data directly to the n8n webhook or copy it for manual submission. The AI model will generate a detailed PDF report.</p>
                   <div className="flex gap-2 flex-wrap">
-                    <button onClick={submitToN8N} className="flex-1 py-2 bg-green-600 text-white rounded-lg text-sm font-medium hover:bg-green-700">
+                    <button onClick={submitToN8N} aria-label="Submit assessment JSON to n8n webhook" className="flex-1 py-2 bg-green-600 text-white rounded-lg text-sm font-medium hover:bg-green-700">
                       📤 Submit JSON
                     </button>
-                    <button onClick={copyN8NPayload} className="flex-1 py-2 bg-purple-600 text-white rounded-lg text-sm font-medium hover:bg-purple-700">
+                    <button onClick={copyN8NPayload} aria-label="Copy assessment JSON to clipboard" className="flex-1 py-2 bg-purple-600 text-white rounded-lg text-sm font-medium hover:bg-purple-700">
                       📋 Copy JSON
                     </button>
-                    <button onClick={downloadPDF} className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700">
+                    <button onClick={downloadPDF} aria-label="Download assessment report as PDF" className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700">
                       📥 Download PDF
                     </button>
-                    <button onClick={() => setStep('intro')} className="px-4 py-2 bg-gray-300 rounded-lg text-sm font-medium hover:bg-gray-400">
+                    <button onClick={() => setStep('intro')} aria-label="Restart assessment" className="px-4 py-2 bg-gray-300 rounded-lg text-sm font-medium hover:bg-gray-400">
                       🔄 Restart
                     </button>
                   </div>
