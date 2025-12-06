@@ -381,19 +381,21 @@
       };
 
       const exportData = () => {
+        const scores = calcScores();
+        const overallLevel = getLevel(scores.overall);
         const data = {
           metadata: { generatedAt: new Date().toISOString(), assessmentType: 'AI Workshop Maturity', language },
           userInfo,
-          scores: calcScores(),
-          overallLevel: getLevel(calcScores().overall),
-          levelName: levelColors[getLevel(calcScores().overall)].name,
-          workshopReadiness: getWorkshopReadiness(calcScores()),
+          scores,
+          overallLevel,
+          levelName: levelColors[overallLevel].name,
+          workshopReadiness: getWorkshopReadiness(scores),
           answers: Object.entries(answers).map(([qId, ans]) => {
             const q = questions.find(qu => qu.id === parseInt(qId));
             return { question: q.q, category: q.cat, answer: q.opts[ans], score: ans };
           }),
-          recommendations: getRecommendations(calcScores()),
-          roadmap: generateRoadmap(calcScores())
+          recommendations: getRecommendations(scores),
+          roadmap: generateRoadmap(scores)
         };
         
         const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
@@ -406,24 +408,26 @@
 
       React.useEffect(() => {
         if (step === 'results' && !submitted) {
+          const scores = calcScores();
+          const overallLevel = getLevel(scores.overall);
           const data = {
             metadata: { generatedAt: new Date().toISOString(), assessmentType: 'AI Workshop Maturity', language },
             userInfo,
-            scores: calcScores(),
-            overallLevel: getLevel(calcScores().overall),
-            levelName: levelColors[getLevel(calcScores().overall)].name,
-            workshopReadiness: getWorkshopReadiness(calcScores()),
+            scores,
+            overallLevel,
+            levelName: levelColors[overallLevel].name,
+            workshopReadiness: getWorkshopReadiness(scores),
             answers: Object.entries(answers).map(([qId, ans]) => {
               const q = questions.find(qu => qu.id === parseInt(qId));
               return { question: q.q, category: q.cat, answer: q.opts[ans], score: ans };
             }),
-            recommendations: getRecommendations(calcScores()),
-            roadmap: generateRoadmap(calcScores())
+            recommendations: getRecommendations(scores),
+            roadmap: generateRoadmap(scores)
           };
-          submitToN8n(data);
+          submitToN8n(data).catch(err => console.error('Auto-submit failed:', err));
           setSubmitted(true);
         }
-      }, [step]);
+      }, [step, submitted, userInfo, answers, questions, language]);
 
       if (step === 'intro') {
         return (
