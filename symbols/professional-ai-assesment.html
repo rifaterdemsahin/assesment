@@ -364,6 +364,25 @@
         return phases;
       };
 
+      const prepareAssessmentData = () => {
+        const scores = calcScores();
+        const overallLevel = getLevel(scores.overall);
+        return {
+          metadata: { generatedAt: new Date().toISOString(), assessmentType: 'AI Workshop Maturity', language },
+          userInfo,
+          scores,
+          overallLevel,
+          levelName: levelColors[overallLevel].name,
+          workshopReadiness: getWorkshopReadiness(scores),
+          answers: Object.entries(answers).map(([qId, ans]) => {
+            const q = questions.find(qu => qu.id === parseInt(qId));
+            return { question: q.q, category: q.cat, answer: q.opts[ans], score: ans };
+          }),
+          recommendations: getRecommendations(scores),
+          roadmap: generateRoadmap(scores)
+        };
+      };
+
       const submitToN8n = async (data) => {
         try {
           const response = await fetch('https://n8n.rifaterdemsahin.com/webhook/cf41ca7a-08d2-4e11-8fd6-a45ea481d52f', {
@@ -381,23 +400,7 @@
       };
 
       const exportData = () => {
-        const scores = calcScores();
-        const overallLevel = getLevel(scores.overall);
-        const data = {
-          metadata: { generatedAt: new Date().toISOString(), assessmentType: 'AI Workshop Maturity', language },
-          userInfo,
-          scores,
-          overallLevel,
-          levelName: levelColors[overallLevel].name,
-          workshopReadiness: getWorkshopReadiness(scores),
-          answers: Object.entries(answers).map(([qId, ans]) => {
-            const q = questions.find(qu => qu.id === parseInt(qId));
-            return { question: q.q, category: q.cat, answer: q.opts[ans], score: ans };
-          }),
-          recommendations: getRecommendations(scores),
-          roadmap: generateRoadmap(scores)
-        };
-        
+        const data = prepareAssessmentData();
         const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -408,26 +411,18 @@
 
       React.useEffect(() => {
         if (step === 'results' && !submitted) {
-          const scores = calcScores();
-          const overallLevel = getLevel(scores.overall);
-          const data = {
-            metadata: { generatedAt: new Date().toISOString(), assessmentType: 'AI Workshop Maturity', language },
-            userInfo,
-            scores,
-            overallLevel,
-            levelName: levelColors[overallLevel].name,
-            workshopReadiness: getWorkshopReadiness(scores),
-            answers: Object.entries(answers).map(([qId, ans]) => {
-              const q = questions.find(qu => qu.id === parseInt(qId));
-              return { question: q.q, category: q.cat, answer: q.opts[ans], score: ans };
-            }),
-            recommendations: getRecommendations(scores),
-            roadmap: generateRoadmap(scores)
-          };
+          const data = prepareAssessmentData();
           submitToN8n(data).catch(err => console.error('Auto-submit failed:', err));
           setSubmitted(true);
         }
-      }, [step, submitted, userInfo, answers, questions, language]);
+      }, [step, submitted, userInfo, answers, language]);
+
+      const resetAssessment = () => {
+        setStep('intro');
+        setAnswers({});
+        setCurrentQ(0);
+        setSubmitted(false);
+      };
 
       if (step === 'intro') {
         return (
@@ -666,7 +661,7 @@
                     <button onClick={exportData} className="flex-1 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg font-bold hover:opacity-90 transition">
                       {t.exportButton}
                     </button>
-                    <button onClick={() => { setStep('intro'); setAnswers({}); setCurrentQ(0); setSubmitted(false); }} className="flex-1 py-3 bg-gradient-to-r from-gray-500 to-gray-600 text-white rounded-lg font-bold hover:opacity-90 transition">
+                    <button onClick={resetAssessment} className="flex-1 py-3 bg-gradient-to-r from-gray-500 to-gray-600 text-white rounded-lg font-bold hover:opacity-90 transition">
                       🔄 {t.startNewAssessment}
                     </button>
                   </div>
