@@ -18,6 +18,76 @@
   <script type="text/babel">
     const { useState } = React;
 
+    // Translation support
+    const translations = {
+      en: {
+        title: "AI Tools Workshop Maturity Assessment",
+        subtitle: "48 questions • 45 minutes • Personalized learning roadmap",
+        tagline: "⚡ Know your AI readiness • Team up effectively • Get your custom roadmap",
+        prereqTitle: "Workshop Prerequisites",
+        prereqItems: [
+          "✅ Stable internet connection (check speed & latency)",
+          "🖥️ Multi-screen setup recommended",
+          "🎧 Working audio setup",
+          "⏱️ Remember: 5-minute breaks every hour + 1-hour lunch"
+        ],
+        namePlaceholder: "👤 Your Name",
+        orgPlaceholder: "🏢 Organization",
+        rolePlaceholder: "💼 Your Role",
+        emailPlaceholder: "📧 Email",
+        experienceLabel: "Select AI Experience Level...",
+        experienceOptions: [
+          "No AI tool experience",
+          "Beginner (< 3 months)",
+          "Intermediate (3-12 months)",
+          "Advanced (1+ years)"
+        ],
+        startButton: "🚀 Start Assessment",
+        backButton: "← Back",
+        nextButton: "Next →",
+        finishButton: "🎯 View Results",
+        questionOf: "Question",
+        of: "of",
+        answered: "answered",
+        complete: "complete",
+        category: "Category",
+        exportButton: "📥 Export Results (JSON)"
+      },
+      tr: {
+        title: "Yapay Zeka Araçları Atölyesi Olgunluk Değerlendirmesi",
+        subtitle: "48 soru • 45 dakika • Kişiselleştirilmiş öğrenme yol haritası",
+        tagline: "⚡ Yapay zeka hazırlığınızı öğrenin • Etkili ekip çalışması • Özel yol haritanızı alın",
+        prereqTitle: "Atölye Ön Koşulları",
+        prereqItems: [
+          "✅ Kararlı internet bağlantısı (hız ve gecikmeyi kontrol edin)",
+          "🖥️ Çoklu ekran kurulumu önerilir",
+          "🎧 Çalışan ses sistemi",
+          "⏱️ Unutmayın: Her saat 5 dakika mola + 1 saat öğle yemeği"
+        ],
+        namePlaceholder: "👤 Adınız",
+        orgPlaceholder: "🏢 Organizasyon",
+        rolePlaceholder: "💼 Rolünüz",
+        emailPlaceholder: "📧 E-posta",
+        experienceLabel: "Yapay Zeka Deneyim Seviyenizi Seçin...",
+        experienceOptions: [
+          "Yapay zeka aracı deneyimi yok",
+          "Başlangıç (< 3 ay)",
+          "Orta (3-12 ay)",
+          "İleri (1+ yıl)"
+        ],
+        startButton: "🚀 Değerlendirmeyi Başlat",
+        backButton: "← Geri",
+        nextButton: "İleri →",
+        finishButton: "🎯 Sonuçları Görüntüle",
+        questionOf: "Soru",
+        of: "/",
+        answered: "cevaplandı",
+        complete: "tamamlandı",
+        category: "Kategori",
+        exportButton: "📥 Sonuçları Dışa Aktar (JSON)"
+      }
+    };
+
     const categories = [
       { id: 'prereq', name: 'Prerequisites & Setup', emoji: '🔧', color: 'from-blue-500 to-blue-600' },
       { id: 'creative', name: 'Creative Tools (Canva)', emoji: '🎨', color: 'from-pink-500 to-pink-600' },
@@ -107,6 +177,9 @@
       const [userInfo, setUserInfo] = useState({ name: '', org: '', role: '', email: '', experience: '' });
       const [answers, setAnswers] = useState({});
       const [currentQ, setCurrentQ] = useState(0);
+      const [language, setLanguage] = useState('en');
+      
+      const t = translations[language];
 
       const handleAnswer = (qId, value) => {
         setAnswers({ ...answers, [qId]: value });
@@ -221,22 +294,35 @@
         return (
           <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-4 flex items-center justify-center">
             <div className="max-w-3xl w-full bg-white/10 backdrop-blur-lg rounded-2xl p-6 text-white">
+              <div className="flex justify-end mb-4">
+                <div className="flex gap-2 bg-white/20 rounded-lg p-1">
+                  <button 
+                    onClick={() => setLanguage('en')} 
+                    className={`px-4 py-2 rounded-md text-sm font-medium transition ${language === 'en' ? 'bg-white text-purple-900' : 'text-white hover:bg-white/10'}`}
+                  >
+                    🇬🇧 English
+                  </button>
+                  <button 
+                    onClick={() => setLanguage('tr')} 
+                    className={`px-4 py-2 rounded-md text-sm font-medium transition ${language === 'tr' ? 'bg-white text-purple-900' : 'text-white hover:bg-white/10'}`}
+                  >
+                    🇹🇷 Türkçe
+                  </button>
+                </div>
+              </div>
               <div className="text-center mb-6">
                 <div className="text-6xl mb-3">🎓</div>
-                <h1 className="text-3xl font-bold mb-2">AI Tools Workshop Maturity Assessment</h1>
-                <p className="text-gray-300 text-sm">48 questions • 45 minutes • Personalized learning roadmap</p>
-                <p className="text-yellow-300 text-xs mt-2">⚡ Know your AI readiness • Team up effectively • Get your custom roadmap</p>
+                <h1 className="text-3xl font-bold mb-2">{t.title}</h1>
+                <p className="text-gray-300 text-sm">{t.subtitle}</p>
+                <p className="text-yellow-300 text-xs mt-2">{t.tagline}</p>
               </div>
 
               <div className="bg-blue-500/20 border border-blue-400/30 rounded-lg p-4 mb-6">
                 <h2 className="font-bold text-blue-200 mb-2 flex items-center gap-2">
-                  <span>📋</span> Workshop Prerequisites
+                  <span>📋</span> {t.prereqTitle}
                 </h2>
                 <div className="text-sm text-blue-100 space-y-1">
-                  <p>• ✅ Stable internet connection (check speed & latency)</p>
-                  <p>• 🖥️ Multi-screen setup recommended</p>
-                  <p>• 🎧 Working audio setup</p>
-                  <p>• ⏱️ Remember: 5-minute breaks every hour + 1-hour lunch</p>
+                  {t.prereqItems.map((item, i) => <p key={i}>• {item}</p>)}
                 </div>
               </div>
 
@@ -250,21 +336,21 @@
               </div>
 
               <div className="space-y-3 mb-4">
-                <input className="w-full p-3 rounded-lg bg-white/20 border border-white/30 placeholder-gray-400 text-sm text-white" placeholder="👤 Your Name" value={userInfo.name} onChange={e => setUserInfo({ ...userInfo, name: e.target.value })} />
-                <input className="w-full p-3 rounded-lg bg-white/20 border border-white/30 placeholder-gray-400 text-sm text-white" placeholder="🏢 Organization" value={userInfo.org} onChange={e => setUserInfo({ ...userInfo, org: e.target.value })} />
-                <input className="w-full p-3 rounded-lg bg-white/20 border border-white/30 placeholder-gray-400 text-sm text-white" placeholder="💼 Your Role" value={userInfo.role} onChange={e => setUserInfo({ ...userInfo, role: e.target.value })} />
-                <input className="w-full p-3 rounded-lg bg-white/20 border border-white/30 placeholder-gray-400 text-sm text-white" placeholder="📧 Email" type="email" value={userInfo.email} onChange={e => setUserInfo({ ...userInfo, email: e.target.value })} />
+                <input className="w-full p-3 rounded-lg bg-white/20 border border-white/30 placeholder-gray-400 text-sm text-white" placeholder={t.namePlaceholder} value={userInfo.name} onChange={e => setUserInfo({ ...userInfo, name: e.target.value })} />
+                <input className="w-full p-3 rounded-lg bg-white/20 border border-white/30 placeholder-gray-400 text-sm text-white" placeholder={t.orgPlaceholder} value={userInfo.org} onChange={e => setUserInfo({ ...userInfo, org: e.target.value })} />
+                <input className="w-full p-3 rounded-lg bg-white/20 border border-white/30 placeholder-gray-400 text-sm text-white" placeholder={t.rolePlaceholder} value={userInfo.role} onChange={e => setUserInfo({ ...userInfo, role: e.target.value })} />
+                <input className="w-full p-3 rounded-lg bg-white/20 border border-white/30 placeholder-gray-400 text-sm text-white" placeholder={t.emailPlaceholder} type="email" value={userInfo.email} onChange={e => setUserInfo({ ...userInfo, email: e.target.value })} />
                 <select className="w-full p-3 rounded-lg bg-white/20 border border-white/30 text-sm text-white" value={userInfo.experience} onChange={e => setUserInfo({ ...userInfo, experience: e.target.value })}>
-                  <option value="" className="text-gray-900">Select AI Experience Level...</option>
-                  <option value="none" className="text-gray-900">No AI tool experience</option>
-                  <option value="beginner" className="text-gray-900">Beginner (< 3 months)</option>
-                  <option value="intermediate" className="text-gray-900">Intermediate (3-12 months)</option>
-                  <option value="advanced" className="text-gray-900">Advanced (1+ years)</option>
+                  <option value="" className="text-gray-900">{t.experienceLabel}</option>
+                  <option value="none" className="text-gray-900">{t.experienceOptions[0]}</option>
+                  <option value="beginner" className="text-gray-900">{t.experienceOptions[1]}</option>
+                  <option value="intermediate" className="text-gray-900">{t.experienceOptions[2]}</option>
+                  <option value="advanced" className="text-gray-900">{t.experienceOptions[3]}</option>
                 </select>
               </div>
 
               <button onClick={() => setStep('questions')} disabled={!userInfo.name || !userInfo.org || !userInfo.experience} className="w-full py-3 bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg font-bold hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed">
-                🚀 Start Assessment
+                {t.startButton}
               </button>
             </div>
           </div>
@@ -282,8 +368,8 @@
             <div className="max-w-3xl mx-auto">
               <div className="mb-4">
                 <div className="flex justify-between text-white text-xs mb-2">
-                  <span>Question {currentQ + 1} of {questions.length}</span>
-                  <span>{answered} answered • {Math.round(progress)}% complete</span>
+                  <span>{t.questionOf} {currentQ + 1} {t.of} {questions.length}</span>
+                  <span>{answered} {t.answered} • {Math.round(progress)}% {t.complete}</span>
                 </div>
                 <div className="h-2 bg-white/20 rounded-full overflow-hidden">
                   <div className="h-full bg-gradient-to-r from-green-400 to-emerald-500 transition-all duration-500" style={{ width: `${progress}%` }} />
@@ -294,7 +380,7 @@
                 <span className="text-3xl">{cat.emoji}</span>
                 <div>
                   <span className="text-white font-bold text-base">{cat.name}</span>
-                  <p className="text-white/80 text-xs">Category {categories.findIndex(c => c.id === cat.id) + 1} of {categories.length}</p>
+                  <p className="text-white/80 text-xs">{t.category} {categories.findIndex(c => c.id === cat.id) + 1} {t.of} {categories.length}</p>
                 </div>
               </div>
 
@@ -316,10 +402,147 @@
 
                 <div className="flex gap-3 mt-6">
                   <button onClick={() => setCurrentQ(Math.max(0, currentQ - 1))} disabled={currentQ === 0} className="px-5 py-2 bg-gray-200 rounded-lg text-sm font-medium disabled:opacity-50 hover:bg-gray-300 transition">
-                    ← Back
+                    {t.backButton}
                   </button>
                   {currentQ < questions.length - 1 ? (
                     <button onClick={() => setCurrentQ(currentQ + 1)} className="flex-1 py-2 bg-purple-600 text-white rounded-lg text-sm font-medium hover:bg-purple-700 transition">
-                      Next →
+                      {t.nextButton}
                     </button>
+                  ) : (
+                    <button onClick={() => setStep('results')} className="flex-1 py-2 bg-green-600 text-white rounded-lg text-sm font-medium hover:bg-green-700 transition">
+                      {t.finishButton}
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      if (step === 'results') {
+        const scores = calcScores();
+        const overallLevel = getLevel(scores.overall);
+        const readiness = getWorkshopReadiness(scores);
+        const recommendations = getRecommendations(scores);
+        const roadmap = generateRoadmap(scores);
+
+        return (
+          <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-4">
+            <div className="max-w-5xl mx-auto py-8">
+              <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+                <div className="bg-gradient-to-r from-purple-600 to-indigo-700 p-8 text-white">
+                  <h1 className="text-4xl font-bold mb-2">🎓 Assessment Complete!</h1>
+                  <p className="text-purple-100">Your personalized workshop readiness report</p>
+                </div>
+
+                <div className="p-8">
+                  <div className="mb-8">
+                    <h2 className="text-2xl font-bold mb-4">Overall Readiness</h2>
+                    <div className={`${levelColors[overallLevel].bg} ${levelColors[overallLevel].border} border-2 rounded-lg p-6`}>
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="flex items-center gap-3">
+                          <span className="text-5xl">{levelColors[overallLevel].emoji}</span>
+                          <div>
+                            <h3 className={`text-2xl font-bold ${levelColors[overallLevel].text}`}>{levelColors[overallLevel].name}</h3>
+                            <p className="text-gray-700">{readiness.level}</p>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <div className={`text-5xl font-bold ${levelColors[overallLevel].text}`}>{scores.overall}%</div>
+                          <p className="text-sm text-gray-600">{readiness.weeks}</p>
+                        </div>
+                      </div>
+                      <p className="text-gray-700 italic">{readiness.desc}</p>
+                    </div>
+                  </div>
+
+                  <div className="mb-8">
+                    <h2 className="text-2xl font-bold mb-4">Category Scores</h2>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      {categories.map(cat => {
+                        const score = scores[cat.id];
+                        const level = getLevel(score);
+                        return (
+                          <div key={cat.id} className={`${levelColors[level].bg} border-2 ${levelColors[level].border} rounded-lg p-4`}>
+                            <div className="flex items-center justify-between mb-2">
+                              <div className="flex items-center gap-2">
+                                <span className="text-2xl">{cat.emoji}</span>
+                                <span className="font-bold text-gray-800">{cat.name}</span>
+                              </div>
+                              <span className={`text-2xl font-bold ${levelColors[level].text}`}>{score}%</span>
+                            </div>
+                            <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                              <div className={`h-full ${cat.color.replace('from-', 'bg-').split(' ')[0]}`} style={{ width: `${score}%` }}></div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {recommendations.length > 0 && (
+                    <div className="mb-8">
+                      <h2 className="text-2xl font-bold mb-4">🎯 Priority Focus Areas</h2>
+                      <div className="space-y-4">
+                        {recommendations.map((rec, i) => (
+                          <div key={i} className="bg-red-50 border-2 border-red-200 rounded-lg p-4">
+                            <div className="flex items-start gap-3">
+                              <span className="text-3xl">{rec.emoji}</span>
+                              <div className="flex-1">
+                                <div className="flex justify-between items-center mb-2">
+                                  <h3 className="font-bold text-gray-800">{rec.area}</h3>
+                                  <span className={`text-xs font-bold px-3 py-1 rounded ${rec.priority === 'Critical' ? 'bg-red-200 text-red-800' : 'bg-orange-200 text-orange-800'}`}>
+                                    {rec.priority} Priority
+                                  </span>
+                                </div>
+                                <p className="text-sm text-gray-600 mb-2">Score: {rec.score}%</p>
+                                <ul className="list-disc list-inside text-sm text-gray-700 space-y-1">
+                                  {rec.actions.map((action, j) => <li key={j}>{action}</li>)}
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="mb-8">
+                    <h2 className="text-2xl font-bold mb-4">🗺️ Your Learning Roadmap</h2>
+                    <div className="space-y-4">
+                      {roadmap.map((phase, i) => (
+                        <div key={i} className="border-l-4 border-indigo-500 pl-4 py-2 bg-indigo-50 rounded-r-lg">
+                          <h3 className="font-bold text-indigo-900">{phase.phase}</h3>
+                          <p className="text-sm text-indigo-700 mb-2">Focus: {phase.focus.filter(f => f).join(', ')}</p>
+                          <ul className="list-disc list-inside text-sm text-gray-700">
+                            {phase.goals.map((goal, j) => <li key={j}>{goal}</li>)}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="flex gap-4">
+                    <button onClick={exportData} className="flex-1 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg font-bold hover:opacity-90 transition">
+                      {t.exportButton}
+                    </button>
+                    <button onClick={() => { setStep('intro'); setAnswers({}); setCurrentQ(0); }} className="flex-1 py-3 bg-gradient-to-r from-gray-500 to-gray-600 text-white rounded-lg font-bold hover:opacity-90 transition">
+                      🔄 Start New Assessment
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      return null;
+    }
+
+    ReactDOM.render(<WorkshopAssessment />, document.getElementById('root'));
+  </script>
+</body>
+</html>
                   
