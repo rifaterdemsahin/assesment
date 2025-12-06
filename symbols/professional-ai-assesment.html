@@ -1,0 +1,325 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Tools Workshop Maturity Assessment</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    const categories = [
+      { id: 'prereq', name: 'Prerequisites & Setup', emoji: '🔧', color: 'from-blue-500 to-blue-600' },
+      { id: 'creative', name: 'Creative Tools (Canva)', emoji: '🎨', color: 'from-pink-500 to-pink-600' },
+      { id: 'comm', name: 'Communication (Teams)', emoji: '💬', color: 'from-green-500 to-green-600' },
+      { id: 'ai', name: 'AI Tools Usage', emoji: '🤖', color: 'from-purple-500 to-purple-600' },
+      { id: 'github', name: 'GitHub & Codespaces', emoji: '💻', color: 'from-gray-700 to-gray-800' },
+      { id: 'markdown', name: 'Markdown & Documentation', emoji: '📝', color: 'from-orange-500 to-orange-600' },
+      { id: 'advanced', name: 'Advanced AI & Models', emoji: '🚀', color: 'from-red-500 to-red-600' },
+      { id: 'delivery', name: 'Project Delivery Pilot', emoji: '🎯', color: 'from-teal-500 to-teal-600' }
+    ];
+
+    const questions = [
+      // Prerequisites & Setup (6 questions)
+      { id: 1, cat: 'prereq', q: '🌐 How comfortable are you checking your internet connection (speed, latency, IP)?', opts: ['Cannot check at all', 'Can check speed only', 'Can check speed & latency', 'Can check all and troubleshoot with VPN'] },
+      { id: 2, cat: 'prereq', q: '🖥️ What is your multi-screen setup capability?', opts: ['Single screen only', 'Dual screen but not optimized', 'Dual screen fully utilized', 'Multi-screen + multi-device in same call'] },
+      { id: 3, cat: 'prereq', q: '🎧 How well can you manage audio setup in collaborative calls?', opts: ['Basic headphones only', 'Can mute/unmute', 'Can switch between devices', 'Professional multi-audio setup with backup'] },
+      { id: 4, cat: 'prereq', q: '📸 How proficient are you with screenshots in Windows?', opts: ['Don\'t know how', 'Can take screenshots', 'Can take, paste & save efficiently', 'Can annotate and share instantly'] },
+      { id: 5, cat: 'prereq', q: '🧠 Do you have a "second brain" system (notes, RAG, backups)?', opts: ['No organized system', 'Basic note-taking', 'Git + cloud backup setup', 'Full RAG system with AI integration'] },
+      { id: 6, cat: 'prereq', q: '⏱️ How do you manage workshop timing and breaks?', opts: ['No time management', 'Aware of breaks', 'Use timers for breaks', 'Structured timing with 5-min breaks + 1hr lunch'] },
+
+      // Creative Tools - Canva (6 questions)
+      { id: 7, cat: 'creative', q: '🎨 How experienced are you with Canva basics?', opts: ['Never used Canva', 'Can view templates', 'Can edit templates', 'Can create from scratch with all features'] },
+      { id: 8, cat: 'creative', q: '📋 Can you use Canva\'s whiteboard features (stickies, lines, duplicating)?', opts: ['No experience', 'Can add basic shapes', 'Can add stickies & lines', 'Master all whiteboard tools + duplication'] },
+      { id: 9, cat: 'creative', q: '👥 How comfortable are you with collaborative content creation in Canva?', opts: ['Work solo only', 'Can share links', 'Can collaborate in real-time', 'Can follow others, comment & color-code items'] },
+      { id: 10, cat: 'creative', q: '🗺️ Can you navigate and organize items on a Canva timeline?', opts: ['Cannot organize', 'Basic placement', 'Can follow horizontal timelines', 'Can find anyone on screen & organize complex layouts'] },
+      { id: 11, cat: 'creative', q: '💬 How well do you use commenting and feedback in Canva?', opts: ['No commenting', 'Can view comments', 'Can add comments', 'Active commenter with mentions & resolutions'] },
+      { id: 12, cat: 'creative', q: '📸 Can you paste screenshots directly into Canva?', opts: ['Don\'t know how', 'Rarely do it', 'Regularly paste screenshots', 'Seamlessly integrate screenshots with annotations'] },
+
+      // Communication - Teams (4 questions)
+      { id: 13, cat: 'comm', q: '💬 How proficient are you with Teams communication features?', opts: ['Basic chat only', 'Can post links & format', 'Can @mention & organize threads', 'Power user with channels, tags & integrations'] },
+      { id: 14, cat: 'comm', q: '🖥️ How comfortable are you with screen sharing in Teams?', opts: ['Never shared screen', 'Can share full screen', 'Can share specific windows', 'Can share + annotate + control permissions'] },
+      { id: 15, cat: 'comm', q: '📹 How do you use Teams meeting features?', opts: ['Join calls only', 'Camera & mic control', 'Record, raise hand & reactions', 'Full collaboration with breakout rooms'] },
+      { id: 16, cat: 'comm', q: '🤝 How effectively do you collaborate with multi-team support?', opts: ['Work independently', 'Basic team communication', 'Active cross-team collaboration', 'Lead multi-team agentic systems'] },
+
+      // AI Tools Usage (8 questions)
+      { id: 17, cat: 'ai', q: '🤖 Which AI tools have you actively used?', opts: ['None', '1-2 tools occasionally', '3-4 tools regularly', 'All major tools (Claude, GPT, Gemini, Grok)'] },
+      { id: 18, cat: 'ai', q: '💭 How skilled are you at prompt engineering?', opts: ['Basic questions only', 'Can write clear prompts', 'Advanced prompts with examples', 'Master prompts + reverse engineering + negative prompts'] },
+      { id: 19, cat: 'ai', q: '🖼️ Can you use AI for image generation and editing?', opts: ['No experience', 'Can generate basic images', 'Can edit prompts for better results', 'Can do image-to-text, text-to-image, image-to-video'] },
+      { id: 20, cat: 'ai', q: '📊 How do you use AI for data analysis and tables?', opts: ['Don\'t use for data', 'Basic data questions', 'Can create tables & analysis', 'Advanced analysis with visualizations'] },
+      { id: 21, cat: 'ai', q: '🎬 Can you create videos with AI tools?', opts: ['No video creation', 'Aware of tools', 'Can generate simple videos', 'Create complex videos with prompts'] },
+      { id: 22, cat: 'ai', q: '📈 Do you understand token counts (input/output)?', opts: ['No knowledge', 'Heard of tokens', 'Understand token limits', 'Optimize prompts for token efficiency'] },
+      { id: 23, cat: 'ai', q: '🔌 Have you used AI integrations (Gmail, Calendar, Drive)?', opts: ['No integrations', 'Basic tool usage', 'Some AI integrations', 'Full AI-powered workflow across all tools'] },
+      { id: 24, cat: 'ai', q: '⚙️ Have you used no-code AI tools or online AI platforms?', opts: ['No experience', 'Explored a few tools', 'Use regularly for projects', 'Build complete solutions with no-code AI'] },
+
+      // GitHub & Codespaces (8 questions)
+      { id: 25, cat: 'github', q: '💻 How experienced are you with GitHub basics?', opts: ['No GitHub experience', 'Can view repositories', 'Can clone & push', 'Can manage repos, branches, PRs & forks'] },
+      { id: 26, cat: 'github', q: '🔀 How comfortable are you with Git branching and PRs?', opts: ['Don\'t know branches', 'Understand concept', 'Can create & merge branches', 'Can review PRs, resolve conflicts & approve'] },
+      { id: 27, cat: 'github', q: '🤖 Have you used GitHub Copilot?', opts: ['Never used', 'Tried a few times', 'Use regularly', 'Optimized settings & workflows with Copilot'] },
+      { id: 28, cat: 'github', q: '☁️ How familiar are you with GitHub Codespaces?', opts: ['Never used', 'Opened once or twice', 'Use for development', 'Power user with MCP, extensions & web apps'] },
+      { id: 29, cat: 'github', q: '📁 Can you create and organize files/folders in GitHub?', opts: ['No experience', 'Can create files via UI', 'Can organize structure', 'Expert with README, docs & automation'] },
+      { id: 30, cat: 'github', q: '🔧 Can you set up extensions and enable Copilot in Codespaces?', opts: ['No knowledge', 'Can install basic extensions', 'Can configure workspace', 'Full custom dev environment setup'] },
+      { id: 31, cat: 'github', q: '🌐 Have you deployed web pages or apps from GitHub?', opts: ['No deployment experience', 'Know about GitHub Pages', 'Deployed static sites', 'Full CI/CD with automated deployments'] },
+      { id: 32, cat: 'github', q: '💼 Do you use GitHub for your LinkedIn CV and project showcase?', opts: ['No professional GitHub presence', 'Basic profile', 'Some projects linked', 'Professional CV with pinned projects'] },
+
+      // Markdown & Documentation (4 questions)
+      { id: 33, cat: 'markdown', q: '📝 How proficient are you with Markdown syntax?', opts: ['No Markdown knowledge', 'Basic formatting', 'Can use images & links', 'Expert with tables, code blocks & presentations'] },
+      { id: 34, cat: 'markdown', q: '🔗 Can you create internal and external links in Markdown?', opts: ['Don\'t know how', 'Can create basic links', 'Can create anchor links', 'Master internal navigation & external references'] },
+      { id: 35, cat: 'markdown', q: '👁️ Do you use Markdown preview effectively?', opts: ['No preview usage', 'Occasionally check preview', 'Always preview before committing', 'Live preview with split-screen workflow'] },
+      { id: 36, cat: 'markdown', q: '🎤 Can you create Markdown presentations?', opts: ['No experience', 'Aware of tools', 'Created basic presentations', 'Create professional slide decks with Markdown'] },
+
+      // Advanced AI & Models (6 questions)
+      { id: 37, cat: 'advanced', q: '🖥️ Have you used AI CLI tools?', opts: ['No CLI AI experience', 'Tried once', 'Use occasionally', 'Regular CLI AI user with Python libraries'] },
+      { id: 38, cat: 'advanced', q: '🔌 Do you understand and use MCP (Model Context Protocol)?', opts: ['Never heard of it', 'Know what it is', 'Used MCP locally', 'Expert with MCP in Codespaces & local'] },
+      { id: 39, cat: 'advanced', q: '🌐 Have you used OpenRouter or Hugging Face?', opts: ['No experience', 'Created account', 'Run models occasionally', 'Regular user with API integrations'] },
+      { id: 40, cat: 'advanced', q: '💻 Have you run local AI models (LM Studio, Ollama)?', opts: ['No local models', 'Installed tools', 'Run models locally', 'Train and fine-tune local models'] },
+      { id: 41, cat: 'advanced', q: '🐛 How do you handle errors in AI-assisted coding?', opts: ['Get stuck on errors', 'Google for solutions', 'Use AI to explain errors', 'AI-driven error resolution & PR completion'] },
+      { id: 42, cat: 'advanced', q: '🧪 How do you approach testing with AI?', opts: ['No testing practice', 'Manual testing', 'Add test data with AI', 'Full AI-driven test generation & execution'] },
+
+      // Project Delivery Pilot (6 questions)
+      { id: 43, cat: 'delivery', q: '🎯 Can you define clear project objectives and key results?', opts: ['Unclear objectives', 'Basic goal setting', 'SMART objectives defined', 'Clear OKRs with AI-generated success metrics'] },
+      { id: 44, cat: 'delivery', q: '🏗️ How do you set up project environments?', opts: ['Struggle with setup', 'Follow instructions', 'Set up independently', 'Design & document custom environments'] },
+      { id: 45, cat: 'delivery', q: '🎨 Can you create UI designs with AI assistance?', opts: ['No UI design skills', 'Use templates', 'Generate images & basic UI', 'Create complete UI with AI-generated assets'] },
+      { id: 46, cat: 'delivery', q: '🧮 How comfortable are you creating formulas and logic with AI?', opts: ['No formula experience', 'Basic calculations', 'Complex formulas with AI', 'Build complete logic systems with GPT'] },
+      { id: 47, cat: 'delivery', q: '💻 Can you integrate AI-generated code into projects?', opts: ['Cannot integrate code', 'Copy-paste code', 'Modify & integrate code', 'Full development cycle with AI assistance'] },
+      { id: 48, cat: 'delivery', q: '🚀 Have you completed a full delivery pilot from idea to deployment?', opts: ['No complete projects', 'Started but not finished', 'Completed small projects', 'Multiple full-cycle AI-assisted projects delivered'] }
+    ];
+
+    const levelColors = {
+      1: { bg: 'bg-red-100', border: 'border-red-400', text: 'text-red-700', name: 'Beginner', emoji: '🔴' },
+      2: { bg: 'bg-orange-100', border: 'border-orange-400', text: 'text-orange-700', name: 'Learning', emoji: '🟠' },
+      3: { bg: 'bg-yellow-100', border: 'border-yellow-400', text: 'text-yellow-700', name: 'Proficient', emoji: '🟡' },
+      4: { bg: 'bg-green-100', border: 'border-green-400', text: 'text-green-700', name: 'Expert', emoji: '🟢' }
+    };
+
+    function WorkshopAssessment() {
+      const [step, setStep] = useState('intro');
+      const [userInfo, setUserInfo] = useState({ name: '', org: '', role: '', email: '', experience: '' });
+      const [answers, setAnswers] = useState({});
+      const [currentQ, setCurrentQ] = useState(0);
+
+      const handleAnswer = (qId, value) => {
+        setAnswers({ ...answers, [qId]: value });
+        if (currentQ < questions.length - 1) {
+          setTimeout(() => setCurrentQ(currentQ + 1), 300);
+        }
+      };
+
+      const calcScores = () => {
+        const scores = {};
+        categories.forEach(cat => {
+          const catQs = questions.filter(q => q.cat === cat.id);
+          const total = catQs.reduce((sum, q) => sum + (answers[q.id] || 0), 0);
+          scores[cat.id] = Math.round((total / (catQs.length * 3)) * 100);
+        });
+        scores.overall = Math.round(Object.values(scores).reduce((a, b) => a + b, 0) / categories.length);
+        return scores;
+      };
+
+      const getLevel = (score) => score < 25 ? 1 : score < 50 ? 2 : score < 75 ? 3 : 4;
+
+      const getWorkshopReadiness = (scores) => {
+        const avg = scores.overall;
+        if (avg < 25) return { level: 'Foundation Training', desc: 'Start with basics and hands-on practice', icon: '📚', weeks: '4-6 weeks' };
+        if (avg < 50) return { level: 'Intermediate Track', desc: 'Ready for guided workshops with peer support', icon: '🌱', weeks: '2-3 weeks' };
+        if (avg < 75) return { level: 'Advanced Track', desc: 'Can lead collaborative sessions and projects', icon: '⚡', weeks: '1-2 weeks' };
+        return { level: 'Expert Facilitator', desc: 'Ready to mentor and design workshops', icon: '🚀', weeks: 'Immediate' };
+      };
+
+      const getRecommendations = (scores) => {
+        const recs = [];
+        categories.forEach(cat => {
+          const score = scores[cat.id];
+          const catInfo = categories.find(c => c.id === cat.id);
+          if (score < 50) {
+            recs.push({
+              priority: score < 25 ? 'Critical' : 'High',
+              area: catInfo.name,
+              emoji: catInfo.emoji,
+              score,
+              actions: getActions(cat.id, score)
+            });
+          }
+        });
+        return recs.sort((a, b) => {
+          const order = { Critical: 0, High: 1, Medium: 2 };
+          return order[a.priority] - order[b.priority];
+        });
+      };
+
+      const getActions = (catId, score) => {
+        const actionMap = {
+          prereq: score < 25 ? ['Practice internet diagnostics', 'Set up dual-screen workspace', 'Master screenshot tools'] : ['Optimize multi-device setup', 'Configure second brain system'],
+          creative: score < 25 ? ['Complete Canva basics tutorial', 'Practice whiteboard features', 'Try collaborative editing'] : ['Master timeline organization', 'Lead collaborative sessions'],
+          comm: score < 25 ? ['Practice screen sharing', 'Learn Teams formatting', 'Use reactions and raise hand'] : ['Lead multi-team calls', 'Set up breakout rooms'],
+          ai: score < 25 ? ['Sign up for all major AI tools', 'Practice basic prompting', 'Try image generation'] : ['Master prompt engineering', 'Integrate AI into workflow'],
+          github: score < 25 ? ['Create GitHub account', 'Clone first repository', 'Make first commit'] : ['Master PR workflows', 'Set up Codespaces environment'],
+          markdown: score < 25 ? ['Learn Markdown basics', 'Practice with README files', 'Create first document'] : ['Build Markdown presentations', 'Master advanced formatting'],
+          advanced: score < 25 ? ['Install LM Studio or Ollama', 'Try AI CLI tools', 'Learn about MCP'] : ['Train local models', 'Build AI-powered workflows'],
+          delivery: score < 25 ? ['Define first project OKRs', 'Set up development environment', 'Complete small AI project'] : ['Lead full delivery cycle', 'Mentor others on best practices']
+        };
+        return actionMap[catId] || [];
+      };
+
+      const generateRoadmap = (scores) => {
+        const phases = [];
+        const weakest = Object.entries(scores).filter(([k]) => k !== 'overall').sort((a, b) => a[1] - b[1]);
+
+        phases.push({
+          phase: 'Week 1-2: Foundation',
+          focus: weakest.slice(0, 3).map(([k]) => categories.find(c => c.id === k)?.name),
+          goals: ['Complete prerequisite setup', 'Master basic tools', 'First collaborative session']
+        });
+        phases.push({
+          phase: 'Week 3-4: Building Skills',
+          focus: weakest.slice(3, 5).map(([k]) => categories.find(c => c.id === k)?.name),
+          goals: ['AI tools proficiency', 'GitHub workflows', 'Documentation practice']
+        });
+        phases.push({
+          phase: 'Week 5-6: Project Delivery',
+          focus: ['Complete Pilot Project'],
+          goals: ['End-to-end project delivery', 'Team collaboration', 'Share learnings']
+        });
+        return phases;
+      };
+
+      const exportData = () => {
+        const data = {
+          metadata: { generatedAt: new Date().toISOString(), assessmentType: 'AI Workshop Maturity' },
+          userInfo,
+          scores: calcScores(),
+          overallLevel: getLevel(calcScores().overall),
+          levelName: levelColors[getLevel(calcScores().overall)].name,
+          workshopReadiness: getWorkshopReadiness(calcScores()),
+          answers: Object.entries(answers).map(([qId, ans]) => {
+            const q = questions.find(qu => qu.id === parseInt(qId));
+            return { question: q.q, category: q.cat, answer: q.opts[ans], score: ans };
+          }),
+          recommendations: getRecommendations(calcScores()),
+          roadmap: generateRoadmap(calcScores())
+        };
+        
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `workshop-assessment-${userInfo.name.replace(/\s+/g, '-')}-${new Date().toISOString().split('T')[0]}.json`;
+        a.click();
+      };
+
+      if (step === 'intro') {
+        return (
+          <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-4 flex items-center justify-center">
+            <div className="max-w-3xl w-full bg-white/10 backdrop-blur-lg rounded-2xl p-6 text-white">
+              <div className="text-center mb-6">
+                <div className="text-6xl mb-3">🎓</div>
+                <h1 className="text-3xl font-bold mb-2">AI Tools Workshop Maturity Assessment</h1>
+                <p className="text-gray-300 text-sm">48 questions • 45 minutes • Personalized learning roadmap</p>
+                <p className="text-yellow-300 text-xs mt-2">⚡ Know your AI readiness • Team up effectively • Get your custom roadmap</p>
+              </div>
+
+              <div className="bg-blue-500/20 border border-blue-400/30 rounded-lg p-4 mb-6">
+                <h2 className="font-bold text-blue-200 mb-2 flex items-center gap-2">
+                  <span>📋</span> Workshop Prerequisites
+                </h2>
+                <div className="text-sm text-blue-100 space-y-1">
+                  <p>• ✅ Stable internet connection (check speed & latency)</p>
+                  <p>• 🖥️ Multi-screen setup recommended</p>
+                  <p>• 🎧 Working audio setup</p>
+                  <p>• ⏱️ Remember: 5-minute breaks every hour + 1-hour lunch</p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-6">
+                {categories.map(cat => (
+                  <div key={cat.id} className={`bg-gradient-to-r ${cat.color} rounded-lg p-3 text-center`}>
+                    <div className="text-2xl">{cat.emoji}</div>
+                    <div className="text-xs mt-1 font-medium">{cat.name}</div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="space-y-3 mb-4">
+                <input className="w-full p-3 rounded-lg bg-white/20 border border-white/30 placeholder-gray-400 text-sm text-white" placeholder="👤 Your Name" value={userInfo.name} onChange={e => setUserInfo({ ...userInfo, name: e.target.value })} />
+                <input className="w-full p-3 rounded-lg bg-white/20 border border-white/30 placeholder-gray-400 text-sm text-white" placeholder="🏢 Organization" value={userInfo.org} onChange={e => setUserInfo({ ...userInfo, org: e.target.value })} />
+                <input className="w-full p-3 rounded-lg bg-white/20 border border-white/30 placeholder-gray-400 text-sm text-white" placeholder="💼 Your Role" value={userInfo.role} onChange={e => setUserInfo({ ...userInfo, role: e.target.value })} />
+                <input className="w-full p-3 rounded-lg bg-white/20 border border-white/30 placeholder-gray-400 text-sm text-white" placeholder="📧 Email" type="email" value={userInfo.email} onChange={e => setUserInfo({ ...userInfo, email: e.target.value })} />
+                <select className="w-full p-3 rounded-lg bg-white/20 border border-white/30 text-sm text-white" value={userInfo.experience} onChange={e => setUserInfo({ ...userInfo, experience: e.target.value })}>
+                  <option value="" className="text-gray-900">Select AI Experience Level...</option>
+                  <option value="none" className="text-gray-900">No AI tool experience</option>
+                  <option value="beginner" className="text-gray-900">Beginner (< 3 months)</option>
+                  <option value="intermediate" className="text-gray-900">Intermediate (3-12 months)</option>
+                  <option value="advanced" className="text-gray-900">Advanced (1+ years)</option>
+                </select>
+              </div>
+
+              <button onClick={() => setStep('questions')} disabled={!userInfo.name || !userInfo.org || !userInfo.experience} className="w-full py-3 bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg font-bold hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed">
+                🚀 Start Assessment
+              </button>
+            </div>
+          </div>
+        );
+      }
+
+      if (step === 'questions') {
+        const q = questions[currentQ];
+        const cat = categories.find(c => c.id === q.cat);
+        const progress = ((currentQ + 1) / questions.length) * 100;
+        const answered = Object.keys(answers).length;
+
+        return (
+          <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-4">
+            <div className="max-w-3xl mx-auto">
+              <div className="mb-4">
+                <div className="flex justify-between text-white text-xs mb-2">
+                  <span>Question {currentQ + 1} of {questions.length}</span>
+                  <span>{answered} answered • {Math.round(progress)}% complete</span>
+                </div>
+                <div className="h-2 bg-white/20 rounded-full overflow-hidden">
+                  <div className="h-full bg-gradient-to-r from-green-400 to-emerald-500 transition-all duration-500" style={{ width: `${progress}%` }} />
+                </div>
+              </div>
+
+              <div className={`bg-gradient-to-r ${cat.color} rounded-t-xl p-4 flex items-center gap-3`}>
+                <span className="text-3xl">{cat.emoji}</span>
+                <div>
+                  <span className="text-white font-bold text-base">{cat.name}</span>
+                  <p className="text-white/80 text-xs">Category {categories.findIndex(c => c.id === cat.id) + 1} of {categories.length}</p>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-b-xl p-6 shadow-2xl">
+                <h2 className="text-xl font-bold text-gray-800 mb-5">{q.q}</h2>
+                <div className="space-y-3">
+                  {q.opts.map((opt, i) => (
+                    <button key={i} onClick={() => handleAnswer(q.id, i)} className={`w-full p-4 rounded-lg border-2 text-left transition-all ${answers[q.id] === i ? 'border-purple-500 bg-purple-50 shadow-md' : 'border-gray-200 hover:border-purple-300 hover:bg-gray-50'}`}>
+                      <div className="flex items-center gap-3">
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center text-lg font-bold ${answers[q.id] === i ? 'bg-purple-500 text-white' : 'bg-gray-100 text-gray-500'}`}>
+                          {['🔴', '🟠', '🟡', '🟢'][i]}
+                        </div>
+                        <span className="text-sm font-medium flex-1">{opt}</span>
+                        {answers[q.id] === i && <span className="text-purple-500 text-xl">✓</span>}
+                      </div>
+                    </button>
+                  ))}
+                </div>
+
+                <div className="flex gap-3 mt-6">
+                  <button onClick={() => setCurrentQ(Math.max(0, currentQ - 1))} disabled={currentQ === 0} className="px-5 py-2 bg-gray-200 rounded-lg text-sm font-medium disabled:opacity-50 hover:bg-gray-300 transition">
+                    ← Back
+                  </button>
+                  {currentQ < questions.length - 1 ? (
+                    <button onClick={() => setCurrentQ(currentQ + 1)} className="flex-1 py-2 bg-purple-600 text-white rounded-lg text-sm font-medium hover:bg-purple-700 transition">
+                      Next →
+                    </button>
+                  
